@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Welcome Back</title>
+        <!-- we cannot put the direct file path here because the browser resolves it against the URL. 
+        Django serves files through the static system -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    
+    <body class="auth-page">
+        <div class="auth-card">
+            <h2>Log In</h2>
+            <form method="POST" class="auth-form">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="auth-button">Submit</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+        </div>
+    </body>
+</html>

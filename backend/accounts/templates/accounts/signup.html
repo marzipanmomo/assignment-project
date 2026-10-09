@@ -1,15 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Create an Account</title>
-    </head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <body>
-        <h2>Sign Up</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Sign Up</button>
-        </form>
+        <title>Create an Account</title>
+        <!-- we cannot put the direct file path here because the browser resolves it against the URL. 
+        Django serves files through the static system -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    
+    <body class="auth-page">
+        <div class="auth-card">
+            <h2>Sign Up</h2>
+            <form method="POST" class="auth-form">
+                {% csrf_token %}
+                {{form.as_p}}
+                
+                <!--{{form.first_name}}
+                {{form.first_name.errors}}
+                {{form.last_name}}
+                {{form.last_name.errors}}
+                {{form.email}}
+                {{form.email.errors}}
+                
+                <div class="password-wrapper">
+                    {{form.password1}}
+                    <button type="button" class="toggle-password" aria-label="ShowPassword">Show</button>
+                </div>
+                {{form.password1.errors}}
+            -->
+                <button type="submit" class="auth-button">Submit</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+        </div>
     </body>
 </html>

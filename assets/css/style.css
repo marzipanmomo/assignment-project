@@ -1,0 +1,85 @@
+/*external css stylesheet*/
+
+body.auth-page { 
+    margin: 0;
+    min-height: 100vh;
+    background-color: seashell;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.auth-card { 
+    background-color: aliceblue; 
+    width: 100%;
+    max-width: 400px;
+    padding: 18px 18px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px slategray;
+}
+
+.auth-card h2{
+    text-align: center;
+}
+.auth-button{
+    width: 90%;
+    padding: 8px;
+    background-color: lightblue;
+    border-color: lightblue;
+    border-radius: 6px;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.auth-button:hover{
+    background-color: lightsteelblue;
+    border-color: lightsteelblue;
+}
+
+.auth-switch{
+    text-align: center;
+    font-size: 13px;
+    color: slategray;
+}
+
+.auth-switch a{ /*link clicked*/
+    color: midnightblue;
+    text-decoration: none; /*no underline*/
+}
+
+.form-input{
+    width: 90%;
+    padding: 7px 7px;
+    border: 1px solid lightblue;
+    font-family: sans-serif;
+    font-size: 13.5px;
+}
+
+.form-input:focus{ /*when the form is being typed in*/
+    outline: none;
+    border-color: slategray;
+}
+
+.password-wrapper{
+    position: relative;
+}
+
+.password-wrapper .form-input{
+    padding-right: 60px;
+}
+
+.toggle-password{
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 12px;
+}
