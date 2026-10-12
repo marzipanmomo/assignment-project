@@ -23,36 +23,31 @@ class CustomUserCreationForm(UserCreationForm):
         if 'first_name' in self.fields:
             self.fields['first_name'].widget.attrs.update({
                 'placeholder': 'First Name',
-                'autocomplete': 'off',
-                'data-toggle': 'first_name'
+                'autocomplete': 'off'
             })
 
         if 'last_name' in self.fields:
             self.fields['last_name'].widget.attrs.update({
                 'placeholder': 'Last Name',
-                'autocomplete': 'off',
-                'data-toggle': 'last_name'
+                'autocomplete': 'off'
             })
 
         if 'email' in self.fields:
                     self.fields['email'].widget.attrs.update({
                         'placeholder': 'Email',
-                        'autocomplete': 'off',
-                        'data-toggle': 'email'
+                        'autocomplete': 'email'
                     })
 
         if 'password1' in self.fields:
             self.fields['password1'].widget.attrs.update({
                 'placeholder': '********',
-                'autocomplete': 'off',
-                'data-toggle': 'password1'
+                'autocomplete': 'new-password'
             })
 
         if 'password2' in self.fields:
             self.fields['password2'].widget.attrs.update({
                 'placeholder': '********',
-                'autocomplete': 'off',
-                'data-toggle': 'password2'
+                'autocomplete': 'new-password'
             })
 
     #prevent error caused by duplicate email, if you try to use one email to make 2 accounts
@@ -83,15 +78,13 @@ class EmailLoginForm(AuthenticationForm):
         if 'username' in self.fields:
             self.fields['username'].widget.attrs.update({
                 'placeholder': 'Email',
-                'autocomplete': 'off',
-                'data-toggle': 'username'
+                'autocomplete': 'email'
             })
         
         if 'password' in self.fields:
             self.fields['password'].widget.attrs.update({
                 'placeholder': '********',
-                'autocomplete': 'off',
-                'data-toggle': 'password'
+                'autocomplete': 'current-password'
             })
 
     def clean_username(self):

@@ -16,6 +16,9 @@
             <h2>Log In</h2>
             <form method="POST" class="auth-form">
                 {% csrf_token %}
+                <!--include error messages-->
+                {{ form.non_field_errors }}
+                
                 {{form.username}}
                 {{form.username.errors}}
 
