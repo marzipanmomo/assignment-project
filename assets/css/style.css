@@ -85,7 +85,7 @@ body.auth-page {
 .toggle-password{
     position: absolute;
     right: 5px;
-    transform: translateY(-220%);
+    transform: translateY(-225%);
     background: none;
     border: none;
     color: #999;
