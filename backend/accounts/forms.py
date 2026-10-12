@@ -6,7 +6,6 @@ class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)
-
     class Meta(UserCreationForm.Meta):
         model = User
         # fields i want to include
@@ -19,6 +18,42 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-input'
+
+        # writing inside the boxes
+        if 'first_name' in self.fields:
+            self.fields['first_name'].widget.attrs.update({
+                'placeholder': 'First Name',
+                'autocomplete': 'off',
+                'data-toggle': 'first_name'
+            })
+
+        if 'last_name' in self.fields:
+            self.fields['last_name'].widget.attrs.update({
+                'placeholder': 'Last Name',
+                'autocomplete': 'off',
+                'data-toggle': 'last_name'
+            })
+
+        if 'email' in self.fields:
+                    self.fields['email'].widget.attrs.update({
+                        'placeholder': 'Email',
+                        'autocomplete': 'off',
+                        'data-toggle': 'email'
+                    })
+
+        if 'password1' in self.fields:
+            self.fields['password1'].widget.attrs.update({
+                'placeholder': '********',
+                'autocomplete': 'off',
+                'data-toggle': 'password1'
+            })
+
+        if 'password2' in self.fields:
+            self.fields['password2'].widget.attrs.update({
+                'placeholder': '********',
+                'autocomplete': 'off',
+                'data-toggle': 'password2'
+            })
 
     #prevent error caused by duplicate email, if you try to use one email to make 2 accounts
     #will also make email lowercase so now it's case insensitive
@@ -44,6 +79,20 @@ class EmailLoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-input'
+
+        if 'username' in self.fields:
+            self.fields['username'].widget.attrs.update({
+                'placeholder': 'Email',
+                'autocomplete': 'off',
+                'data-toggle': 'username'
+            })
+        
+        if 'password' in self.fields:
+            self.fields['password'].widget.attrs.update({
+                'placeholder': '********',
+                'autocomplete': 'off',
+                'data-toggle': 'password'
+            })
 
     def clean_username(self):
         #lower case to match the emails stored in the database

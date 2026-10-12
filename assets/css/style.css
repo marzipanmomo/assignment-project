@@ -1,4 +1,8 @@
 /*external css stylesheet*/
+/* prevent padding from causing elements to overflow their width*/
+*{
+    box-sizing: border-box;
+}
 
 body.auth-page { 
     margin: 0;
@@ -32,6 +36,8 @@ body.auth-page {
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
+    display: block;
+    margin: 0 auto 14px;
 }
 
 .auth-button:hover{
@@ -56,9 +62,34 @@ body.auth-page {
     border: 1px solid lightblue;
     font-family: sans-serif;
     font-size: 13.5px;
+    display: block;
+    margin: 0 auto 14px;
 }
 
 .form-input:focus{ /*when the form is being typed in*/
     outline: none;
     border-color: slategray;
+}
+
+.password-wrapper{
+    position: relative;
+    width:90%;
+    margin: 0 auto 14px;
+}
+
+.password-wrapper .form-input{
+    width:100%;
+    padding-right: 60px;
+}
+
+.toggle-password{
+    position: absolute;
+    right: 5px;
+    transform: translateY(-220%);
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 12px;
 }

@@ -16,10 +16,20 @@
             <h2>Log In</h2>
             <form method="POST" class="auth-form">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{form.username}}
+                {{form.username.errors}}
+
+                <div class="password-wrapper">
+                    {{form.password}}
+                    <button type="button" class="toggle-password" aria-label="ShowPassword">Show</button>
+                </div>
+                {{form.password.errors}}
+
                 <button type="submit" class="auth-button">Submit</button>
             </form>
             <p class="auth-switch">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
         </div>
+    <!--calling js file for the show/hide button-->
+    <script src="{% static 'javascript/toggle.js' %}"></script>
     </body>
 </html>
