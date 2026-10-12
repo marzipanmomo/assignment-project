@@ -33,20 +33,20 @@ class CustomUserCreationForm(UserCreationForm):
             })
 
         if 'email' in self.fields:
-                    self.fields['email'].widget.attrs.update({
-                        'placeholder': 'Email',
-                        'autocomplete': 'email'
-                    })
+            self.fields['email'].widget.attrs.update({
+                'placeholder': 'Email',
+                'autocomplete': 'email'
+            })
 
         if 'password1' in self.fields:
             self.fields['password1'].widget.attrs.update({
-                'placeholder': '********',
+                'placeholder': 'Password',
                 'autocomplete': 'new-password'
             })
 
         if 'password2' in self.fields:
             self.fields['password2'].widget.attrs.update({
-                'placeholder': '********',
+                'placeholder': 'Confirm Password',
                 'autocomplete': 'new-password'
             })
 
@@ -83,7 +83,7 @@ class EmailLoginForm(AuthenticationForm):
         
         if 'password' in self.fields:
             self.fields['password'].widget.attrs.update({
-                'placeholder': '********',
+                'placeholder': 'Password',
                 'autocomplete': 'current-password'
             })
 
