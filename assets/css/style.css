@@ -9,6 +9,7 @@ body.auth-page {
     min-height: 100vh;
     background-color: seashell;
     font-family: sans-serif;
+    /*turns the body into a box*/
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -24,9 +25,11 @@ body.auth-page {
 }
 
 .auth-card h2{
+    /*centers the heading*/
     text-align: center;
 }
 .auth-button{
+    /*submit button*/
     width: 90%;
     padding: 8px;
     background-color: lightblue;
@@ -46,12 +49,14 @@ body.auth-page {
 }
 
 .auth-switch{
+    /*footer text*/
     text-align: center;
     font-size: 13px;
     color: slategray;
 }
 
-.auth-switch a{ /*link clicked*/
+.auth-switch a{ 
+    /*link at footer text*/
     color: midnightblue;
     text-decoration: none; /*no underline*/
 }
@@ -79,10 +84,12 @@ body.auth-page {
 
 .password-wrapper .form-input{
     width:100%;
-    padding-right: 60px;
+    padding-right: 60px; /*prevents password from overlapping with show/hide button*/
 }
 
 .toggle-password{
+    /*show/hide button, move inside form input and 
+    remove the button background so its just text*/
     position: absolute;
     right: 5px;
     transform: translateY(-225%);

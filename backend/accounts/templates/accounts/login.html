@@ -1,13 +1,16 @@
 {% load static %}
+<!--allows the html file to access static files like css and js-->
 <!DOCTYPE html>
 <html>
     <head>
+        <!--meta tags ensure proper mobile responsiveness and character encoding-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <title>Welcome Back</title>
         <!-- we cannot put the direct file path here because the browser resolves it against the URL. 
         Django serves files through the static system -->
+        <!--django's static path resolver-->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     
@@ -15,10 +18,11 @@
         <div class="auth-card">
             <h2>Log In</h2>
             <form method="POST" class="auth-form">
-                {% csrf_token %}
+                {% csrf_token %} <!--django security token required in POST forms-->
                 <!--include error messages-->
-                {{ form.non_field_errors }}
+                {{ form.non_field_errors }} <!--displays form-level errors (invalid login credentials)-->
                 
+                <!--rendering form fields individually instead of using form.as_p-->
                 {{form.username}}
                 {{form.username.errors}}
 
@@ -33,6 +37,7 @@
             <p class="auth-switch">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
         </div>
     <!--calling js file for the show/hide button-->
+    <!--script listens for clicks on the button and changes input's type attribute between password and text-->
     <script src="{% static 'javascript/toggle.js' %}"></script>
     </body>
 </html>

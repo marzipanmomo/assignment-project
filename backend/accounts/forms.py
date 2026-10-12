@@ -2,24 +2,26 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 
+# form for sign up
 class CustomUserCreationForm(UserCreationForm):
+    # modified django's UserCreationForm to add extra fields, remove username
     first_name = forms.CharField(max_length=150, required=True)
     last_name = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)
+
     class Meta(UserCreationForm.Meta):
         model = User
         # fields i want to include
         fields = ('first_name', 'last_name', 'email')
 
-    #this code is so that we can call individual components of the usercreationform
-    #as a class for the stylesheet
+    # loops through all form fields and adds css class form-input for styling
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-input'
 
-        # writing inside the boxes
+        # checks if field exists, puts placeholders inside the boxes
         if 'first_name' in self.fields:
             self.fields['first_name'].widget.attrs.update({
                 'placeholder': 'First Name',
@@ -58,6 +60,7 @@ class CustomUserCreationForm(UserCreationForm):
             raise forms.ValidationError("An account with this email already exists.")
         return email
 
+    #django's db requires username so this method assigns a username before saving to db
     def save(self, commit=True):
         user = super().save(commit=False)
         # removing username field by automatically assigning email to username
@@ -66,7 +69,11 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+#form for log in
 class EmailLoginForm(AuthenticationForm):
+    #expands Django's built in Authentication form
+    #allows login using email instead of username
+    #overrides username field as email field
     username = forms.EmailField(label="Email")
 
     #to separate components for stylesheet
@@ -87,6 +94,7 @@ class EmailLoginForm(AuthenticationForm):
                 'autocomplete': 'current-password'
             })
 
+    #converts email login to lowercase to compare with emails in db record
     def clean_username(self):
         #lower case to match the emails stored in the database
         return self.cleaned_data['username'].lower()
