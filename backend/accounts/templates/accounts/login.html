@@ -31,9 +31,10 @@
                     <button type="button" class="toggle-password" aria-label="ShowPassword">Show</button>
                 </div>
                 {{form.password.errors}}
-
-                <button type="submit" class="auth-button">Submit</button>
-            </form>
+                <div class="btn-block">
+                    <button type="submit" class="auth-button">Submit</button>
+                </div>
+                </form>
             <p class="auth-switch">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
         </div>
     <!--calling js file for the show/hide button-->

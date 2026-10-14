@@ -28,24 +28,27 @@ body.auth-page {
     /*centers the heading*/
     text-align: center;
 }
+.btn-block{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
 .auth-button{
-    /*submit button*/
-    width: 90%;
-    padding: 8px;
-    background-color: lightblue;
-    border-color: lightblue;
+    padding: 8px 20px;
+    background-color: #ffffff;
     border-radius: 6px;
-    font-family: sans-serif;
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     display: block;
-    margin: 0 auto 14px;
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #ddd;
 }
 
 .auth-button:hover{
     background-color: lightsteelblue;
-    border-color: lightsteelblue;
 }
 
 .auth-switch{
@@ -100,3 +103,15 @@ body.auth-page {
     font-family: sans-serif;
     font-size: 12px;
 }
+/* error message css */
+.errorlist{
+    padding-left: 18px;
+}
+.errorlist li{
+    list-style-type: none;
+    font-size:10px;
+    padding-bottom: 5px;
+    color: #ff0211;
+}
+
+/*end error message css */

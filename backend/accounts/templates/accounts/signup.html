@@ -39,7 +39,9 @@
                 </div>
                 {{form.password2.errors}}
             
-                <button type="submit" class="auth-button">Submit</button>
+                <div class="btn-block">
+                    <button type="submit" class="auth-button">Submit</button>
+                </div>
             </form>
             <p class="auth-switch">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
         </div>
