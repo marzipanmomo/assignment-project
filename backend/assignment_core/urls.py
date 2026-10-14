@@ -22,4 +22,5 @@ urlpatterns = [
 
     # include the accounts URL so django knows how to route to it
     path('accounts/', include('accounts.urls')),
+    path('', include('dashboard.urls')),
 ]

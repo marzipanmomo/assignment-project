@@ -4,10 +4,13 @@
     box-sizing: border-box;
 }
 
+/*---------------------------------------------------------------------------------*/
+/* login and sign-up pages */
+
 body.auth-page { 
     margin: 0;
     min-height: 100vh;
-    background-color: seashell;
+    background-color: white;
     font-family: sans-serif;
     /*turns the body into a box*/
     display: flex;
@@ -115,3 +118,55 @@ body.auth-page {
 }
 
 /*end error message css */
+
+/*---------------------------------------------------------------------------------*/
+
+/*home page*/
+
+body.home-page{
+    margin: 0;
+    min-height: 100vh;
+    background-color: white;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome-msg{
+    flex: 1;
+    width:100%;
+    background: linear-gradient(aliceblue,lavenderblush); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0; /*center welcome message on the page*/
+}
+
+.welcome-msg h2{
+    text-align: center;
+}
+
+.logout-btn-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 16px 24px;
+}
+
+.logout-btn{
+    padding: 8px 16px;
+    background-color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: block;
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #ddd;
+}
+
+.logout-btn:hover{
+    background-color: whitesmoke;
+}
+/*---------------------------------------------------------------------------------*/

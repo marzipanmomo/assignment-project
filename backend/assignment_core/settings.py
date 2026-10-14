@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -131,5 +132,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# just because other pages dont't exist yet, make login redirect to admin
-LOGIN_REDIRECT_URL = '/admin/'
+# login redirects to home, logout redirects to login
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
