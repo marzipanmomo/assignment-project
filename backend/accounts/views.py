@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserCreationForm, EmailLoginForm
 
 # Create your views here.
@@ -31,3 +31,14 @@ class EmailLoginView(LoginView):
         if email:
             initial['username'] = email
         return initial
+
+# same thing for log out
+class EmailLogoutView(LogoutView):
+    def post(self, request, *args, **kwargs):
+        # grab email before session is cleared
+        email = request.user.email if request.user.is_authenticated else None
+        response = super().post(request, *args, **kwargs)
+        if email:
+            # session is fresh after logout, so store it again
+            request.session['signup_email'] = email
+        return response
