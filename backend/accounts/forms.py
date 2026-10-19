@@ -9,6 +9,7 @@ ALLOWED_EMAIL_DOMAINS = {
     'hotmail.com',
     'yahoo.com',
     'icloud.com',
+    'protonmail.com',
 }
 
 # form for sign up
