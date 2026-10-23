@@ -1,26 +1,43 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'store/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <section class="hero">
+        <h1>Aurora Decor</h1>
+        <p class="tagline">Curated Home Decor & Furnishings</p>
 
-        <title>Home</title>
+        <form method="GET" action="#" class="search-form">
+            <input type="text" name="q" placeholder="Search for home decor..." class="search-input">
+            <button type="submit" class="search=btn">Search</button>
+        </form>
+    </section>
 
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    </head>
+    <section class="spotlight">
+        <h2>Spotlight</h2>
+        <div class="product-grid">
+            <!-- placeholder cards: replace with a for loop later -->
+            <div class="product-card">
+                <div class="product-image"></div>
+                <h3>Product name</h3>
+                <p class="price">$00.00</p>
+            </div>
 
-    <body class="home-page">
+            <div class="product-card">
+                <div class="product-image"></div>
+                <h3>Product name</h3>
+                <p class="price">$00.00</p>
+            </div>
 
-        <div class="logout-btn-wrapper">
-            <form method="POST" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Log Out</button>
-            </form>
+            <div class="product-card">
+                <div class="product-image"></div>
+                <h3>Product name</h3>
+                <p class="price">$00.00</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"></div>
+                <h3>Product name</h3>
+                <p class="price">$00.00</p>
+            </div>
         </div>
-
-        <div class="welcome-msg">
-            <h2>Welcome, {{ user.first_name }} {{ user.last_name }}!</h2>
-        </div>
-    </body>
-</html>
+    </section>
+{% endblock %}
