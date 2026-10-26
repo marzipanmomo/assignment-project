@@ -17,7 +17,7 @@ body.auth-page {
 }
 
 .auth-card { 
-    background-color: aliceblue; 
+    background: aliceblue;
     width: 100%;
     max-width: 400px;
     padding: 18px 18px;
@@ -124,6 +124,19 @@ body.auth-page {
 /*---------------------------------------------------------------------------------*/
 /*home page*/
 
+.brand-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    gap: 0px;
+}
+
+.logo{
+    height: 36px;
+    width: auto;
+}
+
 /* store pages */
 body.store-page{
     margin: 0;
@@ -148,7 +161,7 @@ body.store-page{
     /*arrange list of links in row, removes 
     bullets and indentation*/
     display: flex;
-    gap: 28px;
+    gap: 24px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -165,7 +178,7 @@ body.store-page{
 .hero{
     text-align: center;
     padding: 20px 0px 30px 0px;
-    background: linear-gradient(rgb(213, 230, 213), lavenderblush);
+    background: linear-gradient(aliceblue, lavenderblush);
 }
 
 .tagline{

@@ -18,8 +18,10 @@
     <body class="store-page">
         <nav class="navbar">
             <div class="nav-brand">
-                <!--logo goes here: <img src="{# static 'images/logo.png' #}" alt="Logo"> -->
-                <span class="brand-name">Aurora Decor</span>
+                <a href="{% url 'home' %}" class="brand-link">
+                    <img src="{% static 'images/logo.png' %}" alt="Aurora Decor logo" class="logo">
+                    <span class="brand-name">Aurora Decor</span>
+                </a>
             </div>
 
             <ul class="nav-links">
