@@ -1,8 +1,6 @@
 /*external css stylesheet*/
 /* prevent padding from causing elements to overflow their width*/
-*{
-    box-sizing: border-box;
-}
+*{box-sizing: border-box;}
 
 /*---------------------------------------------------------------------------------*/
 /* login and sign-up pages */
@@ -27,16 +25,15 @@ body.auth-page {
     box-shadow: 0 10px 30px slategray;
 }
 
-.auth-card h2{
-    /*centers the heading*/
-    text-align: center;
-}
+.auth-card h2{text-align: center;}
+
 .btn-block{
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
 }
+
 .auth-button{
     padding: 8px 20px;
     background-color: white;
@@ -50,9 +47,7 @@ body.auth-page {
     border: 1px solid #ddd;
 }
 
-.auth-button:hover{
-    background-color: whitesmoke;
-}
+.auth-button:hover{background-color: whitesmoke;}
 
 .auth-switch{
     /*footer text*/
@@ -107,9 +102,8 @@ body.auth-page {
     font-size: 12px;
 }
 /* error message css */
-.errorlist{
-    padding-left: 18px;
-}
+.errorlist{padding-left: 18px;}
+
 .errorlist li{
     list-style-type: none;
     font-size:10px;
@@ -118,9 +112,7 @@ body.auth-page {
 }
 
 /*end error message css */
-
 /*---------------------------------------------------------------------------------*/
-
 /*home page*/
 
 .logout-btn{
@@ -136,9 +128,7 @@ body.auth-page {
     border: 1px solid #ddd;
 }
 
-.logout-btn:hover{
-    background-color: whitesmoke;
-}
+.logout-btn:hover{background-color: whitesmoke;}
 
 /* store pages */
 body.store-page{
@@ -148,7 +138,7 @@ body.store-page{
 }
 
 .navbar{
-    display: flex;
+    display: flex; /* puts brandname, links and logout button in a row*/
     justify-content: space-between;
     align-items: center;
     padding: 14px 32px;
@@ -160,7 +150,9 @@ body.store-page{
     font-size: 18px;
 }
 
-.nav-links{
+.nav-links{ 
+    /*arrange list of links in row, removes 
+    bullets and indentation*/
     display: flex;
     gap: 28px;
     list-style: none;
@@ -174,13 +166,11 @@ body.store-page{
     font-size: 14px;
 }
 
-.nav-links a:hover{
-    color: midnightblue;
-}
+.nav-links a:hover{color: midnightblue;}
 
 .hero{
     text-align: center;
-    padding: 60px 20px;
+    padding: 20px 0px 30px 0px;
     background: linear-gradient(rgb(213, 230, 213), lavenderblush);
 }
 
@@ -190,7 +180,7 @@ body.store-page{
 }
 
 .search-form{
-    display: flex;
+    display: flex; /*puts search bar and button in row*/
     justify-content: center;
     gap: 8px;
 }
@@ -204,13 +194,13 @@ body.store-page{
     cursor: pointer;
 }
 
-.spotlight{
-    padding: 40px 32px;
-}
+.spotlight{padding: 0px 32px;}
 
 .product-grid{
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    /*minmax -> each column is at least 220px wide and can grow to take equal share 1fr = 1 fraction of free space*
+    repeat auto-fit means make as many columns that can fit in the row*/
     gap:20px;
 }
 
@@ -242,8 +232,6 @@ body.store-page{
     border: 1px solid #ddd;
 }
 
-.search-btn:hover{
-    background-color: whitesmoke;
-}
+.search-btn:hover{background-color: whitesmoke;}
 
 /*---------------------------------------------------------------------------------*/
