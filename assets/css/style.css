@@ -230,7 +230,7 @@ body.store-page{
 .categories{
     text-align: center;
     padding: 20px 32px 30px;
-    background: white;
+    background: linear-gradient(aliceblue, lavenderblush);
 }
 
 .category-grid{
@@ -241,6 +241,7 @@ body.store-page{
 }
 
 .category-card{
+    background: white;
     border: 1px solid #eee;
     border-radius: 12px;
     padding: 14px;
