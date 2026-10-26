@@ -1,0 +1,37 @@
+{% extends 'store/base.html' %}
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <form method="GET" action="#" class="search-form">
+            <input type="text" name="q" placeholder="Search for home decor..." class="search-input">
+            <button type="submit" class="search-btn">🔍︎</button>
+        </form>
+    </section>
+    <div class="product-grid">
+        <!-- placeholder cards: replace with a for loop later -->
+        <div class="product-card">
+            <div class="product-image"></div>
+            <h3>Product name</h3>
+            <p class="price">$00.00</p>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image"></div>
+            <h3>Product name</h3>
+            <p class="price">$00.00</p>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image"></div>
+            <h3>Product name</h3>
+            <p class="price">$00.00</p>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image"></div>
+            <h3>Product name</h3>
+            <p class="price">$00.00</p>
+        </div>
+    </div>
+{% endblock %}

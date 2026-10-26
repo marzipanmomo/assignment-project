@@ -212,3 +212,31 @@ body.store-page{
 
 .price{color:slategray;}
 /*---------------------------------------------------------------------------------*/
+/* Categories page */
+
+.categories{
+    text-align: center;
+    padding: 20px 32px 30px;
+    background: white;
+}
+
+.category-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.category-card{
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.category-image{
+    height: 160px;
+    background: #f1f1f1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+/*---------------------------------------------------------------------------------*/
