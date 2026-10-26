@@ -180,13 +180,13 @@ body.store-page{
 
 .hero{
     text-align: center;
-    padding: 60px 20px
-    background: linear-gradient(aliceblue, lavenderblush);
+    padding: 60px 20px;
+    background: linear-gradient(rgb(213, 230, 213), lavenderblush);
 }
 
 .tagline{
     color: slategray;
-    margin-botton: 24px;
+    margin-bottom: 24px;
 }
 
 .search-form{
@@ -211,7 +211,7 @@ body.store-page{
 .product-grid{
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap:20px
+    gap:20px;
 }
 
 .product-card{
@@ -227,6 +227,23 @@ body.store-page{
     margin-bottom: 10px;
 }
 
-.price{colour:slategray;}
+.price{color:slategray;}
+
+.search-btn{
+    padding: 8px 20px;
+    background-color: white;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: block;
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #ddd;
+}
+
+.search-btn:hover{
+    background-color: whitesmoke;
+}
 
 /*---------------------------------------------------------------------------------*/

@@ -1,11 +1,16 @@
 <!--creating a base file for the navbar which is consistent on all pages-->
 
-{% load static %}
+<!-- every page needs the same navbar and head, so it lives here and other pages plug into it -->
+
+{% load static %} <!-- switches on static tag which turns style.css into a URL -->
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        <!-- viewport makes page scale properly on phones, -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- block is hole that child pages can fill otherwise 
+        default text Home Decor is used -->
         <title>{% block title %}Home Decor{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
