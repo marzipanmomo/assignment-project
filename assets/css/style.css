@@ -254,3 +254,55 @@ body.store-page{
     margin-bottom: 10px;
 }
 /*---------------------------------------------------------------------------------*/
+/*Contact page*/
+
+.contact{padding: 20px 32px 40px; background: linear-gradient(aliceblue, lavenderblush);}
+
+.contact h2{
+    padding-bottom: 20px;
+}
+
+.contact-layout{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    align-items: start;
+}
+
+.contact-details{
+    padding: 24px;
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+
+.contact-form{
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.contact-input{
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: sans-serif;
+    font-size:14px;
+}
+
+.contact-input:focus{
+    outline: none;
+    border-color: slategray;
+}
+
+.flash-message{
+    background: #e8f5e9;
+    border: 1px solid #b7dfb9;
+    border-radius: 6px;
+    padding: 10px 14px;
+}
+/*---------------------------------------------------------------------------------*/

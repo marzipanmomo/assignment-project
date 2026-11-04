@@ -1,2 +1,45 @@
 {% extends 'store/base.html' %}
 {% block title %}Contact{% endblock %}
+
+{% block content %}
+    <section class="contact">
+        <h2>Contact Us</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <div class="contact-layout">
+            <form method="POST" class="contact-form">
+                {% csrf_token %}
+                <h3>Send us a Message</h3>
+
+                {{ form.non_field_errors }}
+
+                {{ form.name }}
+                {{ form.name.errors }}
+
+                {{ form.email }}
+                {{ form.email.errors }}
+
+                {{ form.topic }}
+                {{ form.topic.errors }}
+
+                {{ form.message }}
+                {{ form.message.errors }}
+
+                <button type="submit" class="auth-button">Send</button>
+            </form>
+
+            <div class="contact-details">
+                <h3>Get in Touch</h3>
+                <p><strong>Email:</strong> hello@auroradecor.example</p>
+                <p><strong>Phone:</strong> +00 000 000 0000</p>
+                <p><strong>Address:</strong> 123 Peach Street, City</p>
+                <p><strong>Hours:</strong> Mon to Fri, 9am to 5pm</p>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
