@@ -1,16 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
-
-# allowed email domains for validation purposes
-ALLOWED_EMAIL_DOMAINS = {
-    'gmail.com',
-    'outlook.com',
-    'hotmail.com',
-    'yahoo.com',
-    'icloud.com',
-    'protonmail.com',
-}
+from accounts.validators import validate_email_domain
 
 # form for sign up
 class CustomUserCreationForm(UserCreationForm):
@@ -68,11 +59,7 @@ class CustomUserCreationForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
 
-        domain = email.rsplit('@', 1)[1] # splits by @ and takes 2nd part
-        if domain not in ALLOWED_EMAIL_DOMAINS:
-            raise forms.ValidationError(
-                "Please use an email from a supported provider (e.g. gmail.com)."
-            )
+        validate_email_domain(email)
 
         if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("An account with this email already exists.")

@@ -2,6 +2,7 @@
 
 from django import forms
 from .models import ContactMessage
+from accounts.validators import validate_email_domain
 
 class ContactForm(forms.ModelForm):
     class Meta:
@@ -18,4 +19,8 @@ class ContactForm(forms.ModelForm):
         self.fields['name'].widget.attrs['placeholder'] = 'Your name'
         self.fields['email'].widget.attrs['placeholder'] = 'Your email'
         self.fields['message'].widget.attrs['placeholder'] = 'How can we help?'
-                        
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        validate_email_domain(email)
+        return email
