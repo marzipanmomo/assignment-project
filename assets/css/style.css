@@ -17,7 +17,7 @@ body.auth-page {
 }
 
 .auth-card { 
-    background: aliceblue;
+    background: linear-gradient(aliceblue, lavenderblush);
     width: 100%;
     max-width: 400px;
     padding: 18px 18px;
@@ -130,6 +130,7 @@ body.auth-page {
     text-decoration: none;
     color: inherit;
     gap: 0px;
+    font-family: Garamond;
 }
 
 .logo{
@@ -305,4 +306,21 @@ body.store-page{
     border-radius: 6px;
     padding: 10px 14px;
 }
+/*---------------------------------------------------------------------------------*/
+
+/* card link styling */
+
+.card-link{
+    display: block; /*makes the link fill the whole card*/
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-card, .product-card{transition: transform 0.15s, box-shadow 0.15s;}
+
+.category-card:hover, .product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
 /*---------------------------------------------------------------------------------*/
