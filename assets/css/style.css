@@ -8,7 +8,7 @@
 body.auth-page { 
     margin: 0;
     min-height: 100vh;
-    background-color: white;
+    background: linear-gradient(aliceblue, lavenderblush);
     font-family: sans-serif;
     /*turns the body into a box*/
     display: flex;
@@ -17,12 +17,12 @@ body.auth-page {
 }
 
 .auth-card { 
-    background: linear-gradient(aliceblue, lavenderblush);
+    background-color: white;
     width: 100%;
     max-width: 400px;
     padding: 18px 18px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px slategray;
+    box-shadow: 0 10px 30px #ddd;
 }
 
 .auth-card h2{text-align: center;}
@@ -261,6 +261,7 @@ body.store-page{
 
 .contact h2{
     padding-bottom: 20px;
+    text-align: center;
 }
 
 .contact-layout{
