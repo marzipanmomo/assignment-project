@@ -25,6 +25,12 @@ body.auth-page {
     box-shadow: 0 10px 30px #ddd;
 }
 
+.signup-brand{
+    display: flex;
+    font-family: Garamond;
+    padding: 10px 0px;
+}
+
 .auth-card h2{text-align: center;}
 
 .btn-block{

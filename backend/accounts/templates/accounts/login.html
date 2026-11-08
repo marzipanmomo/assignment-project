@@ -16,6 +16,10 @@
     
     <body class="auth-page">
         <div class="auth-card">
+            <div class="signup-brand">
+                <img src="{% static 'images/logo.png' %}" alt="Aurora Decor logo" class="logo">
+                <span class="brand-name">Aurora Decor</span>
+            </div>
             <h2>Log In</h2>
             <form method="POST" class="auth-form">
                 {% csrf_token %} <!--django security token required in POST forms-->
