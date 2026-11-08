@@ -27,6 +27,7 @@ body.auth-page {
 
 .signup-brand{
     display: flex;
+    align-items: center; 
     font-family: Garamond;
     padding: 10px 0px;
 }
