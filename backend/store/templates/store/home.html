@@ -14,38 +14,10 @@
     <section class="spotlight">
         <h2>Spotlight</h2>
         <div class="product-grid">
-            <!-- placeholder cards: replace with a for loop later -->
-            <div class="product-card">
-                <a href="#" class="card-link">
-                    <div class="product-image"></div>
-                    <h3>Product name</h3>
-                    <p class="price">$00.00</p>
-                </a>
-            </div>
-
-            <div class="product-card">
-                <a href="#" class="card-link">
-                    <div class="product-image"></div>
-                    <h3>Product name</h3>
-                    <p class="price">$00.00</p>
-                </a>
-            </div>
-
-            <div class="product-card">
-                <a href="#" class="card-link">
-                    <div class="product-image"></div>
-                    <h3>Product name</h3>
-                    <p class="price">$00.00</p>
-                </a>
-            </div>
-
-            <div class="product-card">
-                <a href="#" class="card-link">
-                    <div class="product-image"></div>
-                    <h3>Product name</h3>
-                    <p class="price">$00.00</p>
-                </a>
-            </div>
+            <!-- using a for loop to display the spotlight cards -->
+            {% for product in featured %}
+                {% include 'store/_product_card.html' %}
+            {% endfor %}
         </div>
     </section>
 {% endblock %}

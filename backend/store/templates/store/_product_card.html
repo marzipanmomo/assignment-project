@@ -1,0 +1,11 @@
+<div class="product-card">
+    <a href="#" class="card-link">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+        {% else %}
+            <div class="product-image"></div>
+        {% endif %}
+        <h3>{{ product.name }}</h3>
+        <p class="price">${{ product.price|floatformat:"0g" }}</p> 
+    </a>
+</div>

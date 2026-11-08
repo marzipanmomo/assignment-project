@@ -2,11 +2,13 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ContactForm
+from .models import Product, Category
 
 # Create your views here.
 @login_required
 def home_view(request):
-    return render(request, 'store/home.html')
+    featured = Product.objects.filter(is_featured=True)[:4]
+    return render(request, 'store/home.html', {'featured': featured})
 
 @login_required
 def categories_view(request):
