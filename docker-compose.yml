@@ -5,6 +5,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "127.0.0.1:5434:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -12,17 +14,18 @@ services:
       interval: 3s
       timeout: 3s
       retries: 10
-    ports:
-      - "5433:5432"
   web:
     build: .
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py import_products && python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     env_file:
       - backend/.env
     environment:
       DB_HOST: db
+    volumes:
+      - ./backend:/app/backend
+      - ./assets:/app/assets
     depends_on:
       db:
         condition: service_healthy
