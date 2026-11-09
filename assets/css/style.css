@@ -288,7 +288,7 @@ main{
 .product-image{
     display: block;
     width: 100%;
-    height: 180px;
+    height: 190px;
     object-fit: cover;
     background: var(--bg-placeholder);
     border-radius: 8px;
