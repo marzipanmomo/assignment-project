@@ -1,0 +1,11 @@
+{% load static %}
+<div class="category-grid">
+    {% for category in categories %}
+        <div class="category-card">
+            <a href="{% url 'category_detail' category.slug %}" class="card-link">
+                <img src="{% static 'images/categories/'|add:category.slug|add:'.jpg' %}" alt="{{ category.name }}" class="category-image">
+                <h3>{{ category.name }}</h3>
+            </a>
+        </div>
+    {% endfor %}
+</div>
