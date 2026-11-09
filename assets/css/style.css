@@ -223,7 +223,7 @@ body.store-page{
 .product-card{
     border: 1px solid #ddd;
     border-radius: 12px;
-    padding: 14px 14px 0px 14px;
+    padding: 14px;
 }
 
 .product-image{
@@ -235,9 +235,9 @@ body.store-page{
     border-radius: 8px;
 }
 
-.product-name{line-height: 0px;}
+.product-name{margin: 12px 0 4px; font-size: 17px;}
 
-.price{color:#777;}
+.price{margin: 0;color:#777;}
 /*---------------------------------------------------------------------------------*/
 /* Categories page */
 
@@ -266,7 +266,7 @@ body.store-page{
     background: white;
     border: 1px solid #ddd;
     border-radius: 12px;
-    padding: 12px;
+    padding: 14px;
 }
 
 .category-image{
