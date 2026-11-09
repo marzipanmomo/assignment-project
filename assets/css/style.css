@@ -1,4 +1,6 @@
 /*external css stylesheet*/
+
+/*---------------------------------------------------------------------------------*/
 /* prevent padding from causing elements to overflow their width*/
 *{box-sizing: border-box;}
 
@@ -70,17 +72,9 @@ body.auth-page {
 .form-input{
     width: 90%;
     padding: 7px 7px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-control);
-    font-family: sans-serif;
     font-size: 13.5px;
     display: block;
     margin: 0 auto 14px;
-}
-
-.form-input:focus{ /*when the form is being typed in*/
-    outline: none;
-    border-color: var(--text-muted);
 }
 
 .password-wrapper{
@@ -107,6 +101,8 @@ body.auth-page {
     font-family: sans-serif;
     font-size: 12px;
 }
+
+/*---------------------------------------------------------------------------------*/
 /* error message css */
 .errorlist{padding-left: 18px;}
 
@@ -116,8 +112,6 @@ body.auth-page {
     padding-bottom: 5px;
     color: crimson;
 }
-
-/*end error message css */
 
 /*---------------------------------------------------------------------------------*/
 /*button styling*/
@@ -143,7 +137,50 @@ body.auth-page {
 .auth-button:hover, .logout-btn:hover, .search-btn:hover{background-color: var(--bg-hover);}
 
 /*---------------------------------------------------------------------------------*/
-/*home page*/
+/*card styling*/
+
+.product-card, .category-card, .contact-details, .contact-form{
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+}
+
+.product-card, .category-card{padding: 14px;}
+.contact-details, .contact-form{padding: 28px;}
+
+/*---------------------------------------------------------------------------------*/
+
+/* card link styling */
+
+.card-link{
+    display: block; /*makes the link fill the whole card*/
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-card, .product-card{transition: transform 0.15s, box-shadow 0.15s;}
+
+.category-card:hover, .product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/*---------------------------------------------------------------------------------*/
+/* form input styling */
+
+.form-input, .search-input, .contact-input{
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    font-family: inherit;
+}
+
+.form-input:focus, .search-input:focus, .contact-input:focus{
+    outline: none;
+    border-color: var(--text-muted);
+}
+
+/*---------------------------------------------------------------------------------*/
+/* all store pages */
 
 .brand-link{
     display: flex;
@@ -159,7 +196,6 @@ body.auth-page {
     width: auto;
 }
 
-/* store pages */
 body.store-page{
     margin: 0;
     font-family: sans-serif;
@@ -178,7 +214,7 @@ main{
 .categories, .contact, .category-detail{
     flex: 1;
     background: var(--gradient);
-    padding: 20px var(--page-padding) 40px
+    padding: 20px var(--page-padding) 40px;
 }
 
 .navbar{
@@ -206,11 +242,14 @@ main{
 
 .nav-links a{
     text-decoration: none;
-    color: #444;
+    color: var(--text);
     font-size: 14px;
 }
 
 .nav-links a:hover{color: var(--accent);}
+
+/*---------------------------------------------------------------------------------*/
+/* home page */
 
 .hero{
     text-align: center;
@@ -234,8 +273,6 @@ main{
     width: 100%;
     max-width: 380px;
     padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-control);
 }
 
 .spotlight{padding: 0px var(--page-padding) 40px;text-align: center;}
@@ -246,20 +283,6 @@ main{
     /*minmax -> each column is at least 220px wide and can grow to take equal share 1fr = 1 fraction of free space
     repeat auto-fit means make as many columns that can fit in the row*/
     gap:20px;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    /* repeat auto-fill is restricting the length of the cards */
-    gap:20px;
-}
-
-.product-card{
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 14px;
 }
 
 .product-image{
@@ -274,12 +297,11 @@ main{
 .product-name{margin: 12px 0 4px; font-size: 17px;}
 
 .price{margin: 0;color:var(--text-muted);}
+
 /*---------------------------------------------------------------------------------*/
 /* Categories page */
 
-.categories{
-    text-align: center;
-}
+.categories, .category-detail{text-align: center;}
 
 .category-grid{
     display:grid;
@@ -296,13 +318,6 @@ main{
     margin-bottom: 0;
 }
 
-.category-card{
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 14px;
-}
-
 .category-image{
     display: block;
     width: 100%;
@@ -311,6 +326,7 @@ main{
     border-radius: 8px;
     margin-bottom: 10px;
 }
+
 /*---------------------------------------------------------------------------------*/
 /*Contact page*/
 
@@ -326,34 +342,12 @@ main{
     align-items: start;
 }
 
-.contact-details{
-    padding: 24px;
-    background-color: white;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-}
-
-.contact-form{
-    background-color: white;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    padding: 30px;
-}
-
 .contact-input{
     display: block;
     width: 100%;
     padding: 10px 12px;
     margin-bottom: 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-control);
-    font-family: sans-serif;
     font-size:14px;
-}
-
-.contact-input:focus{
-    outline: none;
-    border-color: var(--text-muted);
 }
 
 .flash-message{
@@ -362,27 +356,15 @@ main{
     border-radius: var(--radius-control);
     padding: 10px 14px;
 }
-/*---------------------------------------------------------------------------------*/
-
-/* card link styling */
-
-.card-link{
-    display: block; /*makes the link fill the whole card*/
-    text-decoration: none;
-    color: inherit;
-}
-
-.category-card, .product-card{transition: transform 0.15s, box-shadow 0.15s;}
-
-.category-card:hover, .product-card:hover{
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
 
 /*---------------------------------------------------------------------------------*/
+/* product cards in category-details */
 
-/* category details page */
-
-.category-detail{text-align: center;}
+.product-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    /* repeat auto-fill is restricting the length of the cards */
+    gap:20px;
+}
 
 /*---------------------------------------------------------------------------------*/
