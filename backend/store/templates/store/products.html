@@ -2,36 +2,47 @@
 {% block title %}Products{% endblock %}
 
 {% block content %}
-    <section class="hero">
-        <form method="GET" action="#" class="search-form">
-            <input type="text" name="q" placeholder="Search for home decor..." class="search-input">
-            <button type="submit" class="search-btn">🔍︎</button>
-        </form>
-    </section>
+<section class="products">
+    <h2>{% if query %}⋆⊱༻ Results for "{{ query }}" ༺⊰⋆{% else %}⋆⊱༻ All Products ༺⊰⋆{% endif %}</h2>
+
+    <form method="GET" class="filter-bar">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search products..." class="search-input">
+
+        <select name="room" class="filter-select">
+            <option value="">All rooms</option>
+            {% for c in rooms %}
+                <option value="{{ c.slug }}" {% if c.slug == selected_room %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <select name="aesthetic" class="filter-select">
+            <option value="">All aesthetics</option>
+            {% for c in aesthetics %}
+                <option value="{{ c.slug }}" {% if c.slug == selected_aesthetic %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="type" class="filter-select">
+            <option value="">All types</option>
+            {% for c in types %}
+                <option value="{{ c.slug }}" {% if c.slug == selected_type %}selected{% endif %}>{{ c.name }}</option>
+            {% endfor %}
+        </select>
+
+        <div class="filter-btn">
+            <button type="submit" class="search-btn">Filter</button>
+            <a href="{% url 'products' %}" class="filter-reset">Reset</a>
+        </div>
+    </form>
+
+    <p class="result-count">{{ products|length }} product{{ products|length|pluralize }}</p>
+
     <div class="product-grid">
-        <!-- placeholder cards: replace with a for loop later -->
-        <div class="product-card">
-            <div class="product-image"></div>
-            <h3>Product name</h3>
-            <p class="price">$00.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image"></div>
-            <h3>Product name</h3>
-            <p class="price">$00.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image"></div>
-            <h3>Product name</h3>
-            <p class="price">$00.00</p>
-        </div>
-
-        <div class="product-card">
-            <div class="product-image"></div>
-            <h3>Product name</h3>
-            <p class="price">$00.00</p>
-        </div>
+        {% for product in products %}
+            {% include 'store/_product_card.html' %}
+        {% empty %}
+            <p>No products match your search</p>
+        {% endfor %}
     </div>
+</section>
 {% endblock %}

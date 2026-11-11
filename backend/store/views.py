@@ -45,3 +45,31 @@ def contact_view(request):
             }
         form = ContactForm(initial=initial)
     return render(request, 'store/contact.html', {'form': form})
+
+@login_required
+def products_view(request):
+    query = request.GET.get('q', '').strip()
+    room = request.GET.get('room', '')
+    aesthetic = request.GET.get('aesthetic', '')
+    ptype = request.GET.get('type', '')
+
+    products = Product.objects.all()
+    if query:
+        products = products.filter(name__icontains=query)
+    if room:
+        products = products.filter(categories__slug=room)
+    if aesthetic:
+        products = products.filter(categories__slug=aesthetic)
+    if ptype:
+        products = products.filter(categories__slug=ptype)
+
+    return render(request, 'store/products.html', {
+        'products': products.distinct(),
+        'query': query,
+        'rooms': Category.objects.filter(group='room'),
+        'aesthetics': Category.objects.filter(group='aesthetic'),
+        'types': Category.objects.filter(group='type'),
+        'selected_room': room,
+        'selected_aesthetic': aesthetic,
+        'selected_type': ptype,
+    })
