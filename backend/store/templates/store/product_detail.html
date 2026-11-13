@@ -1,0 +1,54 @@
+{% extends 'store/base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'products' %}">Products</a></li>
+        <li aria-current="page">{{ product.name }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section class="product-detail">
+    <div class="detail-layout">
+        <div class="detail-image-box">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="detail-image">
+            {% else %}
+                <div class="detail-image"></div>
+            {% endif %}
+        </div>
+        
+        <div class="detail-info">
+            <h1>{{ product.name }}</h1>
+            <p class="detail-price">${{ product.price|floatformat:"0g" }}</p>
+            
+            {% if product.option %}
+                <p class="detail-option">{{ product.option }}</p>
+            {% endif %}
+
+            <p class="detail-description">{{ product.description }}</p>
+        
+            <div class="detail-tags">
+                {% for category in product.categories.all %}
+                    <a href="{% url 'category_detail' category.slug %}" class="tag">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+
+            <button type="button" class="add-to-cart-btn" disabled> Add to cart (coming soon)</button>
+        </div>
+    </div>
+
+    {% if related %}
+    <h2 class="related-heading">⋆⊱༻ You may also like ༺⊰⋆</h2>
+    <div class="related-grid">
+        {% for product in related %}
+            {% include 'store/_product_card.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

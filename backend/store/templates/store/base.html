@@ -30,15 +30,24 @@
                 <li><a href="{% url 'categories' %}">Categories</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
-
-            <form method="POST" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Log Out</button>
-            </form>
+            <!-- login not required to view home page -->
+             {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Log Out</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="logout-btn">Log In</a>
+            {% endif %}
         </nav>
 
+        <!-- breadcrumbs -->
         <main>
+            {% block breadcrumbs %}{% endblock %}
             {% block content %}{% endblock %}
         </main>
+
+        <button type="button" id="scroll-top" class="scroll-top" aria-label="Back to top">🡑</button>
+        <script src="{% static 'javascript/scroll-top.js' %}"></script>
     </body>
 </html>

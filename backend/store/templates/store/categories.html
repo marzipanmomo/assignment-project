@@ -2,6 +2,15 @@
 {% load static %}
 {% block title %}Categories{% endblock %}
 
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li aria-current="page">Categories</li>
+    </ol>
+</nav>
+{% endblock %}
+
 {% block content %}
     <section class="categories">
         <h2>⋆⊱༻ Shop by Room ༺⊰⋆</h2>

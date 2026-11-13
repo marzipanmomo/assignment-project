@@ -1,6 +1,15 @@
 {% extends 'store/base.html' %}
 {% block title %}Products{% endblock %}
 
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li aria-current="page">Products</li>
+    </ol>
+</nav>
+{% endblock %}
+
 {% block content %}
 <section class="products">
     <h2>{% if query %}⋆⊱༻ Results for "{{ query }}" ༺⊰⋆{% else %}⋆⊱༻ All Products ༺⊰⋆{% endif %}</h2>

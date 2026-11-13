@@ -1,6 +1,16 @@
 {% extends 'store/base.html' %}
 {% block title %}{{ category.name }}{% endblock %}
 
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'categories' %}">Categories</a></li>
+        <li aria-current="page">{{ category.name }}</li>
+    </ol>
+</nav>
+{% endblock %}
+
 {% block content %}
 <section class="category-detail">
     <h2>⋆⊱༻ {{ category.name }} ༺⊰⋆</h2>

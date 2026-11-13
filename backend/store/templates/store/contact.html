@@ -1,6 +1,15 @@
 {% extends 'store/base.html' %}
 {% block title %}Contact{% endblock %}
 
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li aria-current="page">Contact</li>
+    </ol>
+</nav>
+{% endblock %}
+
 {% block content %}
     <section class="contact">
         <h2>⋆⊱༻ Contact Us ༺⊰⋆</h2>
