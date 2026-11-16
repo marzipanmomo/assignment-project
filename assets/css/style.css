@@ -211,7 +211,7 @@ main{
     flex-direction: column;
 }
 
-.categories, .contact, .category-detail, .products, .product-detail .cart-page{
+.categories, .contact, .category-detail, .products, .product-detail, .cart-page{
     flex: 1;
     background: var(--gradient);
     padding: 20px var(--page-padding) 40px;
@@ -608,6 +608,12 @@ a.logout-btn{
     border-radius: var(--radius-card);
     text-align: left;
 }
+
+.cart-box a{padding: 10px;}
+
+.cart-box .price{padding: 10px;}
+
+.cart-qty{padding: 10px;}
 
 .cart-row{
     display: grid;
