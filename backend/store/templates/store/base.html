@@ -29,9 +29,10 @@
                 <li><a href="{% url 'products' %}">Products</a></li>
                 <li><a href="{% url 'categories' %}">Categories</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'cart' %}">Cart ({{ cart_count }})</a></li>
             </ul>
             <!-- login not required to view home page -->
-             {% if user.is_authenticated %}
+             {% if user.is_authenticated %}na
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="logout-btn">Log Out</button>

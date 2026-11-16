@@ -1,0 +1,63 @@
+{% extends 'store/base.html' %}
+{% block title %}Your Cart{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li aria-current="page">Cart</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section class="cart-page">
+    <h2>Your Cart</h2>
+
+    {% if items %}
+    <div class="cart-box">
+        {% for item in items %}
+        <div class="cart-row">
+            <a href="{% url 'product_detail' item.product.pk %}" class="cart-thumb-link">
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-thumb">
+                {% endif %}
+            </a>
+        </div>
+
+        <div class="cart-name">
+            <a href="{% url 'product_detail' item.product.pk %}">{{ item.product.name }}</a>
+            <span class="price">${{ item.product.price|floatformat:"0g" }} each</span>
+        </div>
+
+        <form method="POST" action="{% url 'cart_update' item.product.pk %}" class="cart-qty">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="99" class="qty-input">
+            <button type="submit" class="search-btn">Update</button>
+        </form>
+
+        <p class="cart-subtotal">${{ item.subtotal|floatformat:"0g" }}</p>
+
+        <form method="POST" action="{% url 'cart_remove' item.product.pk%}">
+            {% csrf_token %}
+            <button type="submit" class="cart-remove" aria-label="Remove {{ item.product.name }}">x</button>
+        </form>
+    </div>
+    {% endfor %}
+
+    <div class="cart-total">
+        <span>Total</span>
+        <strong>${{ total|floatformat:"0g" }}</strong>
+    </div>
+
+    <div class="cart-actions">
+        <a href="{% url 'products' %}" class="filter-reset">Continue Shopping</a>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>Your cart is empty.</p>
+        <a href="{% url 'products' %}" class="tag">Browse products</a> 
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

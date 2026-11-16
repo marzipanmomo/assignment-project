@@ -5,6 +5,8 @@ from .models import Product, Category
 from django.db.models import Q, Count, Case, When, Value, IntegerField
 from .search import word_query, word_variants, suggest_query
 from urllib.parse import urlencode
+from django.views.decorators.http import require_POST
+from .cart import Cart
 
 # Create your views here.
 
@@ -144,3 +146,38 @@ def product_detail_view(request, pk):
         'product': product,
         'related': related,
     })
+
+def cart_view(request):
+    cart = Cart(request)
+    return render(request, 'store/cart.html', {
+        'items': list(cart),
+        'total': cart.total(),
+    })
+
+@require_POST
+def cart_add(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    try:
+        quantity = max(int(request.POST.get('quantity', 1)), 1)
+    except ValueError:
+        quantity = 1
+    Cart(request).add(product, quantity)
+    return redirect('cart')
+
+@require_POST
+def cart_update(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+    except ValueError:
+        quantity = 1
+    Cart(request).set_quantity(product, quantity)
+    return redirect('cart')
+
+@require_POST
+def cart_remove(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    Cart(request).remove(product)
+    return redirect('cart')
+
+# require post protext against forged requests, or being triggered by plain links
