@@ -2,7 +2,9 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactForm
 from .models import Product, Category
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Case, When, Value, IntegerField
+from .search import word_query, word_variants, suggest_query
+from urllib.parse import urlencode
 
 # Create your views here.
 
@@ -44,22 +46,24 @@ def contact_view(request):
         form = ContactForm(initial=initial)
     return render(request, 'store/contact.html', {'form': form})
 
+SORTS = {
+    'price_asc': ('Price: low to high', ('price', 'name')),
+    'price_desc': ('Price: high to low', ('-price', 'name')),
+    'name': ('Name: A to Z', ('name',)),
+}
+
 def products_view(request):
     query = request.GET.get('q', '').strip()
     room = request.GET.get('room', '')
     aesthetic = request.GET.get('aesthetic', '')
     ptype = request.GET.get('type', '')
+    sort = request.GET.get('sort', '')
 
     products = Product.objects.all()
     
     # allows you to search filter names/shorter words too
     for word in query.split():
-        products = products.filter(
-            Q(name__icontains=word) 
-            | Q(description__icontains=word)
-            | Q(option__icontains=word)
-            | Q(categories__name__icontains=word)
-        )
+        products = products.filter(word_query(word))
 
     if room:
         products = products.filter(categories__slug=room)
@@ -68,8 +72,50 @@ def products_view(request):
     if ptype:
         products = products.filter(categories__slug=ptype)
 
+    products = products.distinct()
+
+    if sort in SORTS:
+        products = products.order_by(*SORTS[sort][1])
+    elif query:
+        # name matches will come before description matches
+        name_hits = Q()
+        for word in query.split():
+            for v in word_variants(word):
+                name_hits |= Q(name__icontains=v)
+        products = products.annotate(
+            name_match=Case(
+                When(name_hits, then=Value(0)),
+                default=Value(1),
+                output_field=IntegerField()
+            )
+        ).order_by('name_match', 'name')
+
+    #active filter tags, each with a link that removes just that filter
+
+    params = {'q': query, 'room': room, 'aesthetic': aesthetic, 'type': ptype, 'sort': sort}
+
+    def without(key):
+        rest = {k: v for k, v in params.items() if v and k != key}
+        return '?' + urlencode(rest) if rest else ''
+
+    names = {c.slug: c.name for c in Category.objects.filter(
+        slug__in=[s for s in (room, aesthetic, ptype) if s])}
+
+    active = []
+
+    if query:
+        active.append({'label': f'{query}', 'remove': without('q')})
+    if room:
+        active.append({'label': names.get(room, room), 'remove': without('room')})
+    if aesthetic:
+        active.append({'label': names.get(aesthetic, aesthetic), 'remove': without('aesthetic')})
+    if ptype:
+        active.append({'label': names.get(ptype, ptype), 'remove': without('type')})
+
+    suggestion = suggest_query(query) if query and not products.exists() else None
+
     return render(request, 'store/products.html', {
-        'products': products.distinct(),
+        'products': products,
         'query': query,
         'rooms': Category.objects.filter(group='room'),
         'aesthetics': Category.objects.filter(group='aesthetic'),
@@ -77,6 +123,10 @@ def products_view(request):
         'selected_room': room,
         'selected_aesthetic': aesthetic,
         'selected_type': ptype,
+        'selected_sort': sort,
+        'sort_options': [(k, v[0]) for k, v in SORTS.items()],
+        'active': active,
+        'suggestion': suggestion,
     })
 
 def product_detail_view(request, pk):

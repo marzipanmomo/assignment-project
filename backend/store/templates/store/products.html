@@ -38,20 +38,54 @@
             {% endfor %}
         </select>
 
+        <!-- sort overrides name/description hierarchy -->
+        <select name="sort" class="filter-select">
+            <option value="">Sort: default</option>
+            {% for key, label in sort_options %}
+                <option value="{{ key }}" {% if key == selected_sort %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
         <div class="filter-btn">
             <button type="submit" class="search-btn">Filter</button>
             <a href="{% url 'products' %}" class="filter-reset">Reset</a>
         </div>
     </form>
 
-    <p class="result-count">{{ products|length }} product{{ products|length|pluralize }}</p>
-
-    <div class="product-grid">
-        {% for product in products %}
-            {% include 'store/_product_card.html' %}
-        {% empty %}
-            <p>No products match your search</p>
+    <!-- keeping track of active filters -->
+    {% if active %}
+    <div class="active-filters">
+        {% for f in active %}
+            <a href="{% url 'products' %}{{ f.remove }}" class="tag">{{ f.label }} x</a>
         {% endfor %}
     </div>
+    {% endif %}
+
+    <p class="result-count">{{ products|length }} product{{ products|length|pluralize }}</p>
+
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+                {% include 'store/_product_card.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>No products match your search.</p>
+
+            {% if suggestion %}
+                <p>Did you mean
+                    <a href="{% url 'products' %}?q={{ suggestion|urlencode }}">{{ suggestion }}</a>?
+                </p>
+            {% endif %}
+
+            <p>Or browse by type:</p>
+            <div class="detail-tags" style="justify-content: center;">
+                {% for c in types %}
+                    <a href="{% url 'category_detail' c.slug %}" class="tag">{{ c.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 </section>
 {% endblock %}

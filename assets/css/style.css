@@ -9,7 +9,7 @@
     --text: #444;
     --text-muted: #777;
     --accent: midnightblue;
-    --bg-hover: whitesmoke;
+    --bg-hover: #fafafa;
     --bg-placeholder: #f1f1f1;
     --gradient: linear-gradient(aliceblue, lavenderblush);
     --radius-card: 12px;
@@ -255,10 +255,10 @@ a.logout-btn{
 }
 
 .breadcrumbs{
-    padding: 6px var(--page-padding);
+    padding: 4px var(--page-padding);
     border-bottom: 1px solid var(--border);
     background: rgb(252,252,252);
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .breadcrumbs ol{
@@ -440,16 +440,16 @@ a.logout-btn{
     align-items: center;
     gap: 8px;
     width: 100%;
-    max-width: 900px;
-    margin: 0 auto 16px;
-    padding: 18px;
+    max-width: 1100px;
+    margin: 0 auto 12px;
+    padding: 16px;
     background-color: white;
     border-radius: 20px;
     box-shadow: 0 10px 30px var(--border);
 }
 
 .filter-bar .search-input{
-    width: 260px;
+    width: 350px;
     max-width: 100%;
 }
 
@@ -471,6 +471,14 @@ a.logout-btn{
 
 .filter-reset:hover{color: var(--accent);}
 
+.active-filters{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
 .result-count{
     color: var(--text-muted);
     font-size: 13px;
@@ -478,6 +486,20 @@ a.logout-btn{
     padding: 10px;
 }
 
+.empty-state{
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    color: var(--text-muted);
+}
+
+.empty-state p a{
+    text-decoration: none;
+    color: var(--accent);
+}
 /*---------------------------------------------------------------------------------*/
 /* product details page */
 
