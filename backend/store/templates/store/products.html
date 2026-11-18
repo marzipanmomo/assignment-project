@@ -15,8 +15,11 @@
     <h2>{% if query %}⋆⊱༻ Results for "{{ query }}" ༺⊰⋆{% else %}⋆⊱༻ All Products ༺⊰⋆{% endif %}</h2>
 
     <form method="GET" class="filter-bar">
-        <input type="text" name="q" value="{{ query }}" placeholder="Search products..." class="search-input">
-
+        
+        <div class="suggest-wrap">
+            <input type="text" name="q" value="{{ query }}" placeholder="Search products..." class="search-input" autocomplete="off" data-suggest-url="{% url 'search_suggest' %}">
+            <ul class="suggest-list" hidden></ul>
+        </div>
         <select name="room" class="filter-select">
             <option value="">All rooms</option>
             {% for c in rooms %}

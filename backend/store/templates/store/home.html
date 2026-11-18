@@ -6,7 +6,10 @@
         <p class="tagline">Curated Home Decor & Furnishings</p>
 
         <form method="GET" action="{% url 'products' %}" class="search-form">
-            <input type="text" name="q" placeholder="Search for home decor..." class="search-input">
+            <div class="suggest-wrap">
+                <input type="text" name="q" placeholder="Search for home decor..." class="search-input" autocomplete="off" data-suggest-url="{% url 'search_suggest' %}">
+                <ul class="suggest-list" hidden></ul>
+            </div>
             <button type="submit" class="search-btn">🔍︎</button>
         </form>
     </section>

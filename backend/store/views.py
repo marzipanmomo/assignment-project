@@ -7,6 +7,8 @@ from .search import word_query, word_variants, suggest_query
 from urllib.parse import urlencode
 from django.views.decorators.http import require_POST
 from .cart import Cart
+from django.http import JsonResponse
+from django.urls import reverse
 
 # Create your views here.
 
@@ -181,3 +183,41 @@ def cart_remove(request, pk):
     return redirect('cart')
 
 # require post protext against forged requests, or being triggered by plain links
+
+def search_suggestions(request):
+    query = request.GET.get('q', '').strip()
+
+    if len(query) < 2:
+        return JsonResponse({'suggestions': []})
+
+    # product matches
+    products = Product.objects.all()
+    for word in query.split():
+        name_q = Q()
+        for v in word_variants(word):
+            name_q |= Q(name__icontains=v)
+        products = products.filter(name_q)
+
+    results = [
+        {'label': p.name, 'kind': 'Product',
+         'url': reverse('product_detail', args=[p.pk])}
+         for p in products.order_by('name')[:5]
+    ]
+
+    results += [
+        {'label': c.name, 'kind': 'Category',
+         'url': reverse('category_detail', args=[c.slug])}
+        for c in Category.objects.filter(name__icontains=query)[:3]
+    ]
+
+    # if nothing found suggest typo correction
+
+    if not results:
+        fix = suggest_query(query)
+        if fix:
+            results.append({
+                'label': fix, 'kind': 'Did you mean',
+                'url': reverse('products') + '?' + urlencode({'q': fix}),
+            })
+
+    return JsonResponse({'suggestions': results})
