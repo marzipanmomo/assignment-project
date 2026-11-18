@@ -15,6 +15,7 @@
     --radius-card: 12px;
     --radius-control: 6px;
     --page-padding: 32px;
+    --error: #9b1c1c;
 }
 
 /*---------------------------------------------------------------------------------*/
@@ -110,7 +111,7 @@ body.auth-page {
     list-style-type: none;
     font-size:10px;
     padding-bottom: 5px;
-    color: crimson;
+    color: var(--error);
 }
 
 /*---------------------------------------------------------------------------------*/
@@ -414,8 +415,8 @@ a.logout-btn{
 .field{margin-bottom: 14px; text-align: left;}
 .field-label{display: block; margin-bottom: 4px; font-size: 13px; color: var(--text-muted)}
 .field .contact-input{margin-bottom: 0;}
-.field.has-error{border-color: crimson;}
-.field-error{margin: 4px 0 0; font-size: 13px; color: crimson;}
+.field.has-error{border-color: var(--error);}
+.field-error{margin: 4px 0 0; font-size: 13px; color: var(--error);}
 
 .form-alert{
     margin: 0 0 16px;
@@ -423,7 +424,7 @@ a.logout-btn{
     background: #fdecea;
     border: 1px solid #f5c2c0;
     border-radius: var(--radius-control);
-    color: #9b1c1c;
+    color: var(--error);
     font-size: 14px;
     text-align: left;
 }
@@ -662,12 +663,6 @@ a.logout-btn{
     text-align: left;
 }
 
-.cart-box a{padding: 10px;}
-
-.cart-box .price{padding: 10px;}
-
-.cart-qty{padding: 10px;}
-
 .cart-row{
     display: grid;
     grid-template-columns: 70px 1fr auto 80px auto;
@@ -707,7 +702,7 @@ a.logout-btn{
 
 .qty-input{
     width: 64px;
-    padding: 8-x;
+    padding: 8px;
     border: 1px solid var(--border);
     border-radius: var(--radius-control);
     font-family: inherit;
@@ -718,7 +713,7 @@ a.logout-btn{
 .cart-total{
     display: flex;
     justify-content: space-between;
-    margin: 16px;
+    margin: 16px 0;
     font-size: 18px;
 }
 
@@ -735,3 +730,5 @@ a.logout-btn{
     .cart-qty, .cart-subtotal{grid-column: 2 / 4;}
 }
 
+.cart-name .price{display: block; margin-top: 2px;}
+.cart-thumb{background: var(--bg-placeholder);}
