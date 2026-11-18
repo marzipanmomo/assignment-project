@@ -14,39 +14,36 @@
     <section class="contact">
         <h2>⋆⊱༻ Contact Us ༺⊰⋆</h2>
 
-        {% if messages %}
-            {% for message in messages %}
-                <p class="flash-message">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-
         <div class="contact-layout">
-            <form method="POST" class="contact-form">
-                {% csrf_token %}
-                <h3>Send us a Message (🗪)</h3>
+            {% if sent %}
+                <div class="contact-form confirmation">
+                    <h3>Thank you!</h3>
+                    <p>We've received your message and will reply by email soon.</p>
+                    <a href="{% url 'contact' %}" class="tag">Send another message</a>
+                </div>
+            {% else %}
+                <form method="POST" class="contact-form" novalidate>
+                    {% csrf_token %}
+                    <h3>Send us a message</h3>
 
-                {{ form.non_field_errors }}
+                    {% if form.errors %}
+                        <p class="form-alert" role="alert">Please fix the highlighted fields below.</p>
+                    {% endif %}
 
-                {{ form.name }}
-                {{ form.name.errors }}
-
-                {{ form.email }}
-                {{ form.email.errors }}
-
-                {{ form.topic }}
-                {{ form.topic.errors }}
-
-                {{ form.message }}
-                {{ form.message.errors }}
-
-                <button type="submit" class="auth-button">Send</button>
-            </form>
+                    {% include 'store/_form_field.html' with field=form.name %}
+                    {% include 'store/_form_field.html' with field=form.email %}
+                    {% include 'store/_form_field.html' with field=form.topic %}
+                    {% include 'store/_form_field.html' with field=form.message %}
+                    
+                    <button type="submit" class="auth-button">Send</button>
+                </form>
+            {% endif %}
 
             <div class="contact-details">
                 <h3>Get in Touch (🌐︎)</h3>
                 <p><strong>Email</strong> (✉)<strong>:</strong> auroradecor@gmail.com</p>
                 <p><strong>Phone</strong> (☏)<strong>:</strong> +00 000 000 0000</p>
-                <p><strong>Address</strong> (📬︎)<strong>:</strong> 123 Peach Street, London<p>
+                <p><strong>Address</strong> (📬︎)<strong>:</strong> 123 Peach Street, London</p>
                 <p><strong>Hours</strong> (⏲)<strong>:</strong> Mon to Fri, 9am to 5pm</p>
             </div>
         </div>

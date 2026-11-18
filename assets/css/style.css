@@ -411,13 +411,25 @@ a.logout-btn{
     font-size:14px;
 }
 
-.flash-message{
-    background: #e8f5e9;
-    border: 1px solid #b7dfb9;
-    border-radius: var(--radius-control);
+.field{margin-bottom: 14px; text-align: left;}
+.field-label{display: block; margin-bottom: 4px; font-size: 13px; color: var(--text-muted)}
+.field .contact-input{margin-bottom: 0;}
+.field.has-error{border-color: crimson;}
+.field-error{margin: 4px 0 0; font-size: 13px; color: crimson;}
+
+.form-alert{
+    margin: 0 0 16px;
     padding: 10px 14px;
+    background: #fdecea;
+    border: 1px solid #f5c2c0;
+    border-radius: var(--radius-control);
+    color: #9b1c1c;
+    font-size: 14px;
+    text-align: left;
 }
 
+.confirmation{text-align: center;}
+.confirmation h3{margin-top: 0;}
 /*---------------------------------------------------------------------------------*/
 /* product cards in category-details */
 

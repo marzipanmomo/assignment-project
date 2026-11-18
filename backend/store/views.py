@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactForm
 from .models import Product, Category
@@ -38,7 +37,7 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Thanks! We've received your message and will reply soon.")
+            request.session['contact_sent'] = True
             return redirect('contact')
     else:
         initial = {}
@@ -48,7 +47,10 @@ def contact_view(request):
                 'email': request.user.email,
             }
         form = ContactForm(initial=initial)
-    return render(request, 'store/contact.html', {'form': form})
+
+    sent = request.session.pop('contact_sent', False)
+    
+    return render(request, 'store/contact.html', {'form': form, 'sent': sent})
 
 SORTS = {
     'price_asc': ('Price: low to high', ('price', 'name')),
