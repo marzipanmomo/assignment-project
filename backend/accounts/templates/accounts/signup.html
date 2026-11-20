@@ -18,7 +18,7 @@
                 <span class="brand-name">Aurora Decor</span>
             </div>
             <h2>Sign Up</h2>
-            <form method="POST" class="auth-form">
+            <form method="POST" class="auth-form" novalidate data-validate>
                 {% csrf_token %}
                 <!--{{form.as_p}}-->
                 <!--include error messages-->
@@ -46,6 +46,7 @@
                 <div class="btn-block">
                     <button type="submit" class="auth-button">Submit</button>
                 </div>
+                <script scr="{% static 'javascript/form-validate.js' %}"></script>
             </form>
             <p class="auth-switch">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
         </div>

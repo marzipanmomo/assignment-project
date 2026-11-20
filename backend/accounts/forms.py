@@ -26,13 +26,13 @@ class CustomUserCreationForm(UserCreationForm):
         if 'first_name' in self.fields:
             self.fields['first_name'].widget.attrs.update({
                 'placeholder': 'First Name',
-                'autocomplete': 'off'
+                'autocomplete': 'given-name'
             })
 
         if 'last_name' in self.fields:
             self.fields['last_name'].widget.attrs.update({
                 'placeholder': 'Last Name',
-                'autocomplete': 'off'
+                'autocomplete': 'family-name'
             })
 
         if 'email' in self.fields:
@@ -50,7 +50,8 @@ class CustomUserCreationForm(UserCreationForm):
         if 'password2' in self.fields:
             self.fields['password2'].widget.attrs.update({
                 'placeholder': 'Confirm Password',
-                'autocomplete': 'new-password'
+                'autocomplete': 'new-password',
+                'data-match': 'id_password1',
             })
 
     #prevent error caused by duplicate email, if you try to use one email to make 2 accounts

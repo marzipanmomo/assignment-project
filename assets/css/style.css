@@ -103,6 +103,16 @@ body.auth-page {
     font-size: 12px;
 }
 
+.auth-form .field-error{
+    width: 90%;
+    margin: -8px auto 12px;
+    font-size: 12px;
+    colour: var(--error);
+    text-align: left; 
+}
+
+.errorlist li{font-size: 12px;}
+input[aria-invalid="true"]{border-color: var(--error);}
 /*---------------------------------------------------------------------------------*/
 /* error message css */
 .errorlist{padding-left: 18px;}

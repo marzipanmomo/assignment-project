@@ -22,7 +22,7 @@
                     <a href="{% url 'contact' %}" class="tag">Send another message</a>
                 </div>
             {% else %}
-                <form method="POST" class="contact-form" novalidate>
+                <form method="POST" class="contact-form" novalidate data-validate>
                     {% csrf_token %}
                     <h3>Send us a message</h3>
 
