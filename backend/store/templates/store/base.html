@@ -12,6 +12,7 @@
         <!-- block is hole that child pages can fill otherwise 
         default text Home Decor is used -->
         <title>{% block title %}Home Decor{% endblock %}</title>
+        {% block extra_head %}{% endblock %}
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
 
@@ -29,7 +30,7 @@
                 <li><a href="{% url 'products' %}">Products</a></li>
                 <li><a href="{% url 'categories' %}">Categories</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li><a href="{% url 'cart' %}">Cart ({{ cart_count }})</a></li>
+                <li><a href="{% url 'cart' %}">Cart (<span data-cart-count>{{ cart_count }}</span>)</a></li>
             </ul>
             <!-- login not required to view home page -->
              {% if user.is_authenticated %}
@@ -47,9 +48,15 @@
             {% block breadcrumbs %}{% endblock %}
             {% block content %}{% endblock %}
         </main>
-
+        <div  id="toast-region" class="toast-region" aria-live="polite"></div>
         <button type="button" id="scroll-top" class="scroll-top" aria-label="Back to top">🡑</button>
+        
+        <script src="{% static 'javascript/toast.js' %}"></script>
         <script src="{% static 'javascript/scroll-top.js' %}"></script>
         <script src="{% static 'javascript/search-suggest.js' %}"></script>
+        <script src="{% static 'javascript/form-validate.js' %}"></script>
+        <script src="{% static 'javascript/cart-add.js' %}"></script>
+        <script src="{% static 'javascript/confirm-modal.js' %}"></script>
+        {% block extra_scripts %}{% endblock %}
     </body>
 </html>

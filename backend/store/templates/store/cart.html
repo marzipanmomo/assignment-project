@@ -39,7 +39,7 @@
 
             <p class="cart-subtotal">${{ item.subtotal|floatformat:"0g" }}</p>
 
-            <form method="POST" action="{% url 'cart_remove' item.product.pk%}">
+            <form method="POST" action="{% url 'cart_remove' item.product.pk%}" data-confirm="Remove {{ item.product.name }} from your cart?">
                 {% csrf_token %}
                 <button type="submit" class="cart-remove" aria-label="Remove {{ item.product.name }}">x</button>
             </form>
@@ -61,5 +61,18 @@
         <a href="{% url 'products' %}" class="tag">Browse products</a> 
     </div>
     {% endif %}
+
+    <dialog id="confirm-dialog" class="modal" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+        <div class="modal-box">
+            <button type="button" class="modal-close" data-modal-cancel aria-label="Close">x</button>
+            <h3 id="confirm-title">Remove item?</h3>
+            <p id="confirm-text"></p>
+            <div class="modal-actions">
+                <!-- autofocus on cancel so enter doesn't delete anything -->
+                <button type="button" class="auth-button" data-modal-cancel autofocus>Cancel</button>
+                <button type="button" class="danger-btn" id="confirm-ok">Remove</button>
+            </div>
+        </div>
+    </dialog>
 </section>
 {% endblock %}

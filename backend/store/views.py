@@ -149,6 +149,7 @@ def product_detail_view(request, pk):
     return render(request, 'store/product_detail.html', {
         'product': product,
         'related': related,
+        'in_cart': product in Cart(request),
     })
 
 def cart_view(request):
@@ -165,7 +166,16 @@ def cart_add(request, pk):
         quantity = max(int(request.POST.get('quantity', 1)), 1)
     except ValueError:
         quantity = 1
-    Cart(request).add(product, quantity)
+
+    cart = Cart(request)
+    cart.add(product, quantity)
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({
+            'name': product.name,
+            'count': len(cart),
+            'cart_url': reverse('cart'),
+        })
     return redirect('cart')
 
 @require_POST

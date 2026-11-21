@@ -1,20 +1,20 @@
 document.querySelectorAll('form[data-validate]').forEach(function(form){
     const fields = Array.from(form.querySelectorAll(
-        'input:not([type=hidden]):([type=sumbit]):not([type=button]), select, textarea'  
+        'input:not([type=hidden]):not([type=sumbit]):not([type=button]), select, textarea'  
     )).filter(function(f){ return f.name; });
 
     function label(input){
-        const l = input.labels && input.lavels[0];
+        const l = input.labels && input.labels[0];
         return input.dataset.label || input.placeholder || (l && l.textContent.trim()) || 'This field';
     }
 
     function messageFor(input){
         const v = input.validity;
-        if (v.valueMissing) return label(input) +  'is required.';
+        if (v.valueMissing) return label(input) + ' is required.';
         if (v.typeMismatch && input.type === 'email'){
             return 'Enter a valid email address, like name@example.com.';
         }
-        if (v.tooShort) return label(input) + ' must be at least' + input.minLength + ' characters.';
+        if (v.tooShort) return label(input) + ' must be at least ' + input.minLength + ' characters.';
         if (input.dataset.match) {
             const other = document.getElementById(input.dataset.match);
             if (other && input.value !== other.value) return 'The passwords do not match.';

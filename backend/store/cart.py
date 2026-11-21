@@ -43,4 +43,7 @@ class Cart:
     def total(self):
         return sum(item['subtotal'] for item in self)
 
+    def __contains__(self, product):
+        return str(product.pk) in self.cart 
+
     # get and _save are so that users who never touch the cart don't have a session created for them

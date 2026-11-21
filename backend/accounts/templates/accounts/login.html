@@ -32,18 +32,18 @@
 
                 <div class="password-wrapper">
                     {{form.password}}
-                    <button type="button" class="toggle-password" aria-label="ShowPassword">Show</button>
+                    <button type="button" class="toggle-password" aria-label="Show Password">Show</button>
                 </div>
                 {{form.password.errors}}
                 <div class="btn-block">
                     <button type="submit" class="auth-button">Submit</button>
                 </div>
-                <script scr="{% static 'javascript/form-validate.js' %}"></script>
             </form>
             <p class="auth-switch">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
         </div>
     <!--calling js file for the show/hide button-->
     <!--script listens for clicks on the button and changes input's type attribute between password and text-->
     <script src="{% static 'javascript/toggle.js' %}"></script>
-    </body>
+    <script src="{% static 'javascript/form-validate.js' %}"></script>
+</body>
 </html>
