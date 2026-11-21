@@ -11,10 +11,14 @@
         <!-- we cannot put the direct file path here because the browser resolves it against the URL. 
         Django serves files through the static system -->
         <!--django's static path resolver-->
+        <script src="{% static 'javascript/theme.js' %}"></script>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     
     <body class="auth-page">
+        <!-- dark mode -->
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Dark mode" aria-pressed="false"></button>
+                
         <div class="auth-card">
             <div class="signup-brand">
                 <img src="{% static 'images/logo.png' %}" alt="Aurora Decor logo" class="logo">

@@ -13,6 +13,7 @@
         default text Home Decor is used -->
         <title>{% block title %}Home Decor{% endblock %}</title>
         {% block extra_head %}{% endblock %}
+        <script src="{% static 'javascript/theme.js' %}"></script>
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
 
@@ -32,15 +33,21 @@
                 <li><a href="{% url 'contact' %}">Contact</a></li>
                 <li><a href="{% url 'cart' %}">Cart (<span data-cart-count>{{ cart_count }}</span>)</a></li>
             </ul>
-            <!-- login not required to view home page -->
-             {% if user.is_authenticated %}
-                <form method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-btn">Log Out</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}" class="logout-btn">Log In</a>
-            {% endif %}
+
+            <!-- wrap right side of navbar -->
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" data-theme-toggle aria-label="Dark mode" aria-pressed="false"></button>
+                
+                <!-- login not required to view home page -->
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Log Out</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="logout-btn">Log In</a>
+                {% endif %}
+            </div>
         </nav>
 
         <!-- breadcrumbs -->
