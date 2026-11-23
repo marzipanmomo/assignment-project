@@ -1,5 +1,6 @@
 document.querySelectorAll('form[data-cart-add').forEach(function(form){
     form.addEventListener('submit', function(e){
+        if (e.defaultPrevented) return;
         e.preventDefault();
         const button = form.querySelector('button[type="submit"]');
         button.disabled = true;

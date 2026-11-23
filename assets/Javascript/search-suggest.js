@@ -1,77 +1,123 @@
-document.querySelectorAll('input[data-suggest-url]').forEach(function(input){
-    const list = input.parentElement.querySelector('.suggest-list');
-    const url = input.dataset.suggestUrl;
-    let timer = null;
-    let controller = null;
-    let activeIndex = -1;
+(function () {
+    let counter = 0;
 
-    function hide(){
-        list.hidden = true;
-        list.innerHTML = '';
-        activeIndex = -1;
-    }
+    document.querySelectorAll('input[data-suggest-url]').forEach(function (input) {
+        const wrap = input.parentElement;
+        const list = wrap.querySelector('.suggest-list');
+        const clear = wrap.querySelector('.search-clear');
+        const form = input.form;
+        const url = input.dataset.suggestUrl;
+        const showAll = input.hasAttribute('data-suggest-all');
+        const hadQuery = input.defaultValue.trim() !== '';   // the page was loaded with a search
+        let timer = null;
+        let controller = null;
+        let activeIndex = -1;
+        let allItems = null;                                 // cache of the "everything" list
 
-    function render(items){
-        list.innerHTML = '';
-        items.forEach(function(item) {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = item.url;
+        list.id = 'suggest-list-' + (++counter);
+        list.setAttribute('role', 'listbox');
+        input.setAttribute('role', 'combobox');
+        input.setAttribute('aria-autocomplete', 'list');
+        input.setAttribute('aria-controls', list.id);
+        input.setAttribute('aria-expanded', 'false');
 
-            const label = document.createElement('span');
-            label.textContent = item.label;
-            const kind = document.createElement('span');
-            kind.className = 'suggest-kind';
-            kind.textContent = item.kind;
+        function setOpen(open) {
+            list.hidden = !open;
+            input.setAttribute('aria-expanded', String(open));
+            if (!open) activeIndex = -1;
+        }
 
-            a.append(label, kind);
-            li.appendChild(a);
-            list.appendChild(li);
-        });
-        list.hidden = items.length === 0;
-        activeIndex = -1;
-    }
+        function updateClear() {
+            if (clear) clear.hidden = input.value === '';
+        }
 
-    //wait 200ms, cancel any inflight requests
+        function render(items) {
+            list.innerHTML = '';
+            items.forEach(function (item) {
+                const li = document.createElement('li');
+                li.setAttribute('role', 'option');
+                const a = document.createElement('a');
+                a.href = item.url;
+                const label = document.createElement('span');
+                label.textContent = item.label;           // textContent, never innerHTML
+                const kind = document.createElement('span');
+                kind.className = 'suggest-kind';
+                kind.textContent = item.kind;
+                a.append(label, kind);
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+            activeIndex = -1;
+            setOpen(items.length > 0);
+        }
 
-    input.addEventListener('input', function (){
-        clearTimeout(timer);
-        const q = input.value.trim();
-        if (q.length < 2) {hide(); return;}
+        function load() {
+            const q = input.value.trim();
+            if (q === '' && !showAll) { setOpen(false); return; }
+            if (q === '' && allItems) { render(allItems); return; }
 
-        timer = setTimeout(function(){
             if (controller) controller.abort();
             controller = new AbortController();
             fetch(url + '?q=' + encodeURIComponent(q), { signal: controller.signal })
-            .then(function (r) { return r.json(); })
-            .then(function (data) { render(data.suggestions); })
-            .catch(function (err) {
-                if (err.name !== 'AbortError') console.error(err);
-            });
-        }, 200);
-    });
-
-    // arrow keys to move through the list, enter to press
-    input.addEventListener('keydown', function (e) {
-        const links = list.querySelectorAll('a');
-        if (list.hidden || !links.length) return;
-
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
-            e.preventDefault();
-            const step = e.key === 'ArrowDown' ? 1 : -1;
-            activeIndex = (activeIndex + step + links.length) % links.length;
-            links.forEach(function (l, i) {
-                l.parentElement.classList.toggle('active', i === activeIndex);   
-            });
-        } else if (e.key === 'Enter' && activeIndex >= 0) {
-            e.preventDefault();
-            links[activeIndex].click();
-        } else if (e.key === 'Escape') {
-            hide();
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (q === '') allItems = data.suggestions;
+                    if (document.activeElement !== input) return;   // user already moved on
+                    render(data.suggestions);
+                })
+                .catch(function (err) {
+                    if (err.name !== 'AbortError') console.error(err);
+                });
         }
-    });
 
-    document.addEventListener('click', function(e){
-        if(!input.parentElement.contains(e.target)) hide();
+        input.addEventListener('input', function () {
+            updateClear();
+            clearTimeout(timer);
+            timer = setTimeout(load, 150);
+        });
+
+        input.addEventListener('focus', function () {
+            updateClear();
+            load();
+        });
+
+        if (clear) {
+            clear.addEventListener('click', function () {
+                input.value = '';
+                updateClear();
+                // if this page is showing results for a search, reset them
+                if (hadQuery && form) {
+                    if (form.requestSubmit) form.requestSubmit(); else form.submit();
+                    return;
+                }
+                input.focus();
+                load();
+            });
+        }
+
+        input.addEventListener('keydown', function (e) {
+            const links = list.querySelectorAll('a');
+            if (e.key === 'Escape') { setOpen(false); return; }
+            if (list.hidden || !links.length) return;
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const step = e.key === 'ArrowDown' ? 1 : -1;
+                activeIndex = (activeIndex + step + links.length) % links.length;
+                links.forEach(function (l, i) {
+                    l.parentElement.classList.toggle('active', i === activeIndex);
+                });
+                links[activeIndex].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter' && activeIndex >= 0) {
+                e.preventDefault();
+                links[activeIndex].click();
+            }
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!wrap.contains(e.target)) setOpen(false);
+        });
+
+        updateClear();
     });
-});
+})();

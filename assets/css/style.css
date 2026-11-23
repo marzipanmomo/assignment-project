@@ -43,6 +43,7 @@
     --bg-hover: #4b5273;
     --gradient: linear-gradient(#2b304a, #453b5c);
     --shadow-color: rgba(0,0,0,0.35);
+    --error: #ff0000;
     --error-bg: #4d2f42;
     --error-border: #8a4a5a;
 }
@@ -58,7 +59,26 @@ body.auth-page {
     display: flex;
     justify-content: center;
     align-items: center; 
+    padding: 64px 16px 24px;
 }
+
+.back-home{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.back-home:hover{background: var(--bg-hover);}
 
 .auth-card { 
     background-color: var(--surface);
@@ -185,7 +205,7 @@ input[aria-invalid="true"]{border-color: var(--error);}
 }
 
 .product-card, .category-card{padding: 14px;}
-.contact-details, .contact-form{padding: 28px;}
+.contact-details, .contact-form{padding: 18px;}
 
 /*---------------------------------------------------------------------------------*/
 
@@ -294,7 +314,7 @@ a.logout-btn{
 }
 
 .breadcrumbs{
-    padding: 4px var(--page-padding);
+    padding: 2px var(--page-padding);
     border-bottom: 1px solid var(--border);
     background: var(--surface-alt);
     font-size: 11px;
@@ -374,6 +394,28 @@ a.logout-btn{
     max-width: 380px;
     padding: 10px 14px;
 }
+
+.suggest-wrap .search-input{padding-right: 36px;}
+.search-clear{
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    border-radius: 50%;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.search-clear:hover{background: var(--bg-hover); color: var(--text);}
+.search-clear[hidden]{display: none;}
 
 .spotlight{padding: 0px var(--page-padding) 40px;text-align: center;}
 
@@ -473,6 +515,7 @@ a.add-to-cart-btn{display: inline-block; text-decoration: none; color: var(--tex
 .contact h2{
     padding-bottom: 10px;
     text-align: center;
+    margin: 5px;
 }
 
 .contact-layout{
@@ -614,6 +657,9 @@ a.add-to-cart-btn{display: inline-block; text-decoration: none; color: var(--tex
     border-radius: var(--radius-control);
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     text-align: left;
+    max-height: 320px; 
+    overflow-y: auto; 
+    overscroll-behavior: contain;
 }
 
 .suggest-list[hidden]{display: none;}
@@ -809,7 +855,9 @@ body:has(dialog[open]){overflow: hidden;}
     font-weight: 600;
 }
 
-.cart-qty{display: flex; gap: 6px;}
+.cart-qty{display: flex; flex-direction: column; align-items: flex-start;}
+.qty-row{display: flex; gap: 6px;}
+.cart-qty .field-error{margin: 6px 0 0; max-width: 200px;}
 .cart-subtotal{margin: 0; text-align: right; font-weight: 600;}
 
 .cart-remove{
@@ -898,6 +946,6 @@ input:-webkit-autofill{
 .theme-toggle::before{content: "\263E";}
 [data-theme="dark"] .theme-toggle::before{content: "\2600\FE0E";}
 
-body.auth-page .theme-toggle{position: fixed; top: 16px; right: 16px;}
+body.auth-page .theme-toggle{position: absolute; top: 16px; right: 16px;}
 
 [data-theme="dark"] .logo{filter:invert(1);}

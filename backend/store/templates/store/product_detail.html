@@ -41,9 +41,9 @@
             {% if in_cart %}
                 <a href="{% url 'cart' %}" class="add-to-cart-btn view-cart-btn">View cart</a>
             {% else %}
-                <form method="POST" action="{% url 'cart_add' product.pk %}" class="add-form" data-cart-add>
+                <form method="POST" action="{% url 'cart_add' product.pk %}" class="add-form" data-cart-add novalidate data-validate>
                     {% csrf_token %}
-                    <input type="number" name="quantity" value="1" min="1" max="99" class="qty-input">
+                    <input type="number" name="quantity" value="1" min="1" max="99" class="qty-input" data-label="Quantity">
                     <button type="submit" class="add-to-cart-btn">Add to cart</button>
                 </form>
             {% endif %}

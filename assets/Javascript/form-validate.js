@@ -15,15 +15,19 @@ document.querySelectorAll('form[data-validate]').forEach(function(form){
             return 'Enter a valid email address, like name@example.com.';
         }
         if (v.tooShort) return label(input) + ' must be at least ' + input.minLength + ' characters.';
+        if(v.rangeUnderflow) return input.dataset.minMessage || 'Enter a value of at least ' + input.min + '.';
+        if(v.rangeOverflow) return input.dataset.maxMessage || 'The maximum is ' + input.max + '.';
+        if (v.badInput || v.stepMismatch) return 'Enter a whole number.';
         if (input.dataset.match) {
             const other = document.getElementById(input.dataset.match);
             if (other && input.value !== other.value) return 'The passwords do not match.';
         }
-        return ''
+        return '';
     }
 
-    function anchor(input){ return input.closest('.password-wrapper') || input;}
-
+    function anchor(input){
+        return input.closest('[data-error-anchor]') || input.closest('.password-wrapper') || input;
+    }
     function clearError(input) {
         input.removeAttribute('aria-invalid');
         let next = anchor(input).nextElementSibling;

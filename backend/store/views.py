@@ -182,10 +182,11 @@ def cart_add(request, pk):
 def cart_update(request, pk):
     product = get_object_or_404(Product, pk=pk)
     try:
-        quantity = int(request.POST.get('quantity', 1))
+        quantity = int(request.POST.get('quantity', ''))
     except ValueError:
-        quantity = 1
-    Cart(request).set_quantity(product, quantity)
+        return redirect('cart')
+    if 1 <= quantity <= 99:
+        Cart(request).set_quantity(product, quantity)
     return redirect('cart')
 
 @require_POST
@@ -199,8 +200,16 @@ def cart_remove(request, pk):
 def search_suggestions(request):
     query = request.GET.get('q', '').strip()
 
-    if len(query) < 2:
-        return JsonResponse({'suggestions': []})
+    def product_row(p):
+        return{'label': p.name, 'kind': f'${p.price:,.0f}', 'url': reverse('product_detail', args=[p.pk])}
+
+    #empty box
+    if not query:
+        return JsonResponse({'suggestions': [
+            product_row(p) for p in Product.objects.order_by('name')   
+        ]})
+
+    products = Product.objects.all()
 
     # product matches
     products = Product.objects.all()
@@ -210,11 +219,7 @@ def search_suggestions(request):
             name_q |= Q(name__icontains=v)
         products = products.filter(name_q)
 
-    results = [
-        {'label': p.name, 'kind': 'Product',
-         'url': reverse('product_detail', args=[p.pk])}
-         for p in products.order_by('name')[:5]
-    ]
+    results = [product_row(p) for p in products.order_by('name')[:10]]
 
     results += [
         {'label': c.name, 'kind': 'Category',

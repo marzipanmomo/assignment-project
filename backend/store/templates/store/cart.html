@@ -31,10 +31,15 @@
                 <span class="price">${{ item.product.price|floatformat:"0g" }} each</span>
             </div>
 
-            <form method="POST" action="{% url 'cart_update' item.product.pk %}" class="cart-qty">
+            <form method="POST" action="{% url 'cart_update' item.product.pk %}" class="cart-qty" novalidate data-validate>
                 {% csrf_token %}
-                <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="99" class="qty-input">
-                <button type="submit" class="search-btn">Update</button>
+                <div class="qty-row" data-error-anchor>
+                    <input type="number" name="quantity" value="{{ item.quantity }}" 
+                        min="1" max="99" step="1" required class="qty-input"
+                        data-label="Quantity"
+                        data-min-message="Quantity must be at least 1. To remove this item, use the x button.">
+                    <button type="submit" class="search-btn">Update</button>
+                </div>    
             </form>
 
             <p class="cart-subtotal">${{ item.subtotal|floatformat:"0g" }}</p>

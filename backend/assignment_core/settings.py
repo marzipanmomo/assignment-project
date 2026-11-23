@@ -141,3 +141,6 @@ LOGOUT_REDIRECT_URL = 'home'
 # adding urls for images
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# email validation - offline
+CHECK_EMAIL_DOMAINS = os.getenv('CHECK_EMAIL_DOMAINS', 'True') == 'True'
