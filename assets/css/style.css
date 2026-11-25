@@ -408,6 +408,7 @@ a.logout-btn{
     justify-content: center;
     padding: 0;
     background: none;
+    border: none;
     border-radius: 50%;
     color: var(--text-muted);
     font-size: 14px;
@@ -416,6 +417,8 @@ a.logout-btn{
 
 .search-clear:hover{background: var(--bg-hover); color: var(--text);}
 .search-clear[hidden]{display: none;}
+
+.search-btn:disabled{opacity: 0.5; cursor: not-allowed;}
 
 .spotlight{padding: 0px var(--page-padding) 40px;text-align: center;}
 
@@ -630,6 +633,23 @@ a.add-to-cart-btn{display: inline-block; text-decoration: none; color: var(--tex
     color: var(--accent);
 }
 
+.visually-hidden{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+#results{transition: opacity 0.15s;}
+#results.loading{opacity: 0.55;}
+
+.search-btn:disabled{opacity: 0.5; cursor: not-allowed;}
+.filter-bar .search-btn{padding: 10px 16px; font-size: 14px#;}
 /*---------------------------------------------------------------------------------*/
 /* search suggest styling */
 

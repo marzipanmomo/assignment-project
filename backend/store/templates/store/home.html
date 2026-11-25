@@ -8,6 +8,7 @@
         <form method="GET" action="{% url 'products' %}" class="search-form">
             <div class="suggest-wrap">
                 <input type="text" name="q" placeholder="Search for home decor..." class="search-input" autocomplete="off" data-suggest-url="{% url 'search_suggest' %}" data-suggest-all>
+                <button type="button" class="search-clear" aria-label="Clear search" hidden>x</button>
                 <ul class="suggest-list" hidden></ul>
             </div>
             <button type="submit" class="search-btn">🔍︎</button>

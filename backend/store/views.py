@@ -133,6 +133,7 @@ def products_view(request):
         'sort_options': [(k, v[0]) for k, v in SORTS.items()],
         'active': active,
         'suggestion': suggestion,
+        'has_filters': any([query, room, aesthetic, ptype, sort]),
     })
 
 def product_detail_view(request, pk):

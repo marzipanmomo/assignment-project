@@ -1,4 +1,5 @@
 {% extends 'store/base.html' %}
+{% load static %}
 {% block title %}Products{% endblock %}
 
 {% block breadcrumbs %}
@@ -14,11 +15,10 @@
 <section class="products">
     <h2>{% if query %}⋆⊱༻ Results for "{{ query }}" ༺⊰⋆{% else %}⋆⊱༻ All Products ༺⊰⋆{% endif %}</h2>
 
-    <form method="GET" class="filter-bar">
-        
+    <form method="GET" class="filter-bar" id="filter-form">  
         <div class="suggest-wrap">
-            <input type="text" name="q" value="{{ query }}" placeholder="Search products..." class="search-input" autocomplete="off" data-suggest-url="{% url 'search_suggest' %}">
-            <ul class="suggest-list" hidden></ul>
+            <input type="text" name="q" value="{{ query }}" placeholder="Search products..." class="search-input" autocomplete="off">
+            <button type="button" class="search-clear" aria-label="Clear search" hidden>x</button>
         </div>
         <select name="room" class="filter-select">
             <option value="">All rooms</option>
@@ -48,47 +48,53 @@
                 <option value="{{ key }}" {% if key == selected_sort %}selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
-
-        <div class="filter-btn">
-            <button type="submit" class="search-btn">Filter</button>
-            <a href="{% url 'products' %}" class="filter-reset">Reset</a>
-        </div>
+        <button type="submit" form="reset-form" class="search-btn" id="filter-reset">Reset</button>
+        <noscript><button type="submit" class="search-btn">Filter</button></noscript>
     </form>
+    <form id="reset-form" method="get" action="{% url 'products' %}"></form>
 
-    <!-- keeping track of active filters -->
-    {% if active %}
-    <div class="active-filters">
-        {% for f in active %}
-            <a href="{% url 'products' %}{{ f.remove }}" class="tag">{{ f.label }} x</a>
-        {% endfor %}
-    </div>
-    {% endif %}
+    <p id="results-status" class="visually-hidden" role="status"></p>
 
-    <p class="result-count">{{ products|length }} product{{ products|length|pluralize }}</p>
-
-    {% if products %}
-        <div class="product-grid">
-            {% for product in products %}
-                {% include 'store/_product_card.html' %}
+    <div id="results">
+        <!-- keeping track of active filters -->
+        {% if active %}
+        <div class="active-filters">
+            {% for f in active %}
+                <a href="{% url 'products' %}{{ f.remove }}" class="tag">{{ f.label }} x</a>
             {% endfor %}
         </div>
-    {% else %}
-        <div class="empty-state">
-            <p>No products match your search.</p>
+        {% endif %}
 
-            {% if suggestion %}
-                <p>Did you mean
-                    <a href="{% url 'products' %}?q={{ suggestion|urlencode }}">{{ suggestion }}</a>?
-                </p>
-            {% endif %}
+        <p class="result-count">{{ products|length }} product{{ products|length|pluralize }}</p>
 
-            <p>Or browse by type:</p>
-            <div class="detail-tags" style="justify-content: center;">
-                {% for c in types %}
-                    <a href="{% url 'category_detail' c.slug %}" class="tag">{{ c.name }}</a>
+        {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                    {% include 'store/_product_card.html' %}
                 {% endfor %}
             </div>
-        </div>
-    {% endif %}
+        {% else %}
+            <div class="empty-state">
+                <p>No products match your search.</p>
+
+                {% if suggestion %}
+                    <p>Did you mean
+                        <a href="{% url 'products' %}?q={{ suggestion|urlencode }}">{{ suggestion }}</a>?
+                    </p>
+                {% endif %}
+
+                <p>Or browse by type:</p>
+                <div class="detail-tags" style="justify-content: center;">
+                    {% for c in types %}
+                        <a href="{% url 'category_detail' c.slug %}" class="tag">{{ c.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'javascript/live-products.js' %}"></script>
 {% endblock %}
