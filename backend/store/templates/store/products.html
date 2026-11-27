@@ -13,7 +13,7 @@
 
 {% block content %}
 <section class="products">
-    <h2>{% if query %}⋆⊱༻ Results for "{{ query }}" ༺⊰⋆{% else %}⋆⊱༻ All Products ༺⊰⋆{% endif %}</h2>
+    <h2 id="results-heading">{% if query %}⋆⊱༻ Results for "{{ query }}" ༺⊰⋆{% else %}⋆⊱༻ All Products ༺⊰⋆{% endif %}</h2>
 
     <form method="GET" class="filter-bar" id="filter-form">  
         <div class="suggest-wrap">

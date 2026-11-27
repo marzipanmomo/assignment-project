@@ -23,7 +23,6 @@
 
     function syncControls(){
         if (clear) clear.hidden = input.value === '';
-        if (reset) reset.disabled = currentParams().toString() === '';   
     }
 
     function update(){
@@ -50,7 +49,12 @@
                 TARGETS.forEach(function(id){
                     const fresh = doc.getElementById(id);
                     const current = document.getElementById(id);
-                    if(fresh && current) current.innerHTML = fresh.innerHTML;
+
+                    if (!fresh || !current){
+                        console.warn('live-products.js: no element with id "+ id + "');
+                        return;
+                    }
+                    current.innerHTML = fresh.innerHTML;
                 });
                 const count = doc.querySelector('.result-count');
                 if(status && count) status.textContent = count.textContent.trim();

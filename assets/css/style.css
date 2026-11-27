@@ -648,7 +648,6 @@ a.add-to-cart-btn{display: inline-block; text-decoration: none; color: var(--tex
 #results{transition: opacity 0.15s;}
 #results.loading{opacity: 0.55;}
 
-.search-btn:disabled{opacity: 0.5; cursor: not-allowed;}
 .filter-bar .search-btn{padding: 10px 16px; font-size: 14px#;}
 /*---------------------------------------------------------------------------------*/
 /* search suggest styling */
