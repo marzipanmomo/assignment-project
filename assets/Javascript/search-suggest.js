@@ -118,6 +118,21 @@
             if (!wrap.contains(e.target)) setOpen(false);
         });
 
+        //if you press enter, then back button to home page, search box will not be activated.
+        if(form){
+            form.addEventListener('submit', function(){
+                setOpen(false);
+                input.blur();
+            });
+        }
+
+        window.addEventListener('pageshow', function(){
+            setOpen(false);
+            if(showAll) input.value = input.defaultValue;
+            if(document.activeElement === input) input.blur();
+            updateClear();
+        });
+
         updateClear();
     });
 })();

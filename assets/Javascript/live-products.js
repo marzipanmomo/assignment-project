@@ -73,6 +73,10 @@
         timer = setTimeout(update, 250);
     });
 
+    input.addEventListener('keydown', function(e){
+        if(e.key === 'Escape') input.blur();
+    }); //exit search box if you press escape
+
     selects.forEach(function(select){
         select.addEventListener('change', update);
     });
@@ -80,6 +84,7 @@
     form.addEventListener('submit', function(e){
         e.preventDefault();
         update();
+        input.blur(); //if you press enter you leave the search box
     });
 
     if(clear){

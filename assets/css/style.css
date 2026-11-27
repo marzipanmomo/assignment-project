@@ -278,8 +278,11 @@ main{
 
 .navbar{
     display: flex; /* puts brandname, links and logout button in a row*/
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    column-gap: 16px;
+    row-gap: 8px;
     padding: 14px var(--page-padding);
     border-bottom: 1px solid var(--border);
 }
@@ -293,7 +296,8 @@ main{
     /*arrange list of links in row, removes 
     bullets and indentation*/
     display: flex;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 18px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -311,6 +315,16 @@ a.logout-btn{
     text-decoration: none;
     color: inherit;
     display: inline-block;
+}
+
+.nav-links a, .logout-btn, .brand-name{white-space: nowrap;}
+
+@media(max-width: 1000px){
+    .nav-links{
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .breadcrumbs{
