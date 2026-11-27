@@ -8,6 +8,9 @@ from django.views.decorators.http import require_POST
 from .cart import Cart
 from django.http import JsonResponse
 from django.urls import reverse
+import os
+from pathlib import Path
+from django.conf import settings
 
 # Create your views here.
 
@@ -201,16 +204,25 @@ def cart_remove(request, pk):
 def search_suggestions(request):
     query = request.GET.get('q', '').strip()
 
+    thumb_dir = Path(settings.MEDIA_ROOT) / 'thumbs'
+    thumbs = set(os.listdir(thumb_dir) if thumb_dir.is_dir() else set())
+
+    def thumb_url(product):
+        if not product.image:
+            return ''
+        name = os.path.basename(product.image.name)
+        if name in thumbs:
+            return settings.MEDIA_URL + 'thumbs/' + name
+        return product.image.url
+
     def product_row(p):
-        return{'label': p.name, 'kind': f'${p.price:,.0f}', 'url': reverse('product_detail', args=[p.pk])}
+        return{'label': p.name, 'kind': f'${p.price:,.0f}', 'image': thumb_url(p), 'url': reverse('product_detail', args=[p.pk])}
 
     #empty box
     if not query:
         return JsonResponse({'suggestions': [
             product_row(p) for p in Product.objects.order_by('name')   
         ]})
-
-    products = Product.objects.all()
 
     # product matches
     products = Product.objects.all()

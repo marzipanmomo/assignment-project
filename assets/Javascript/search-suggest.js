@@ -38,12 +38,28 @@
                 li.setAttribute('role', 'option');
                 const a = document.createElement('a');
                 a.href = item.url;
+
+                let thumb = null;
+                if(item.image !== undefined){
+                    thumb = document.createElement(item.image ? 'img' : 'span');
+                    thumb.className = 'suggest-thumb';
+                    if(item.image){
+                        thumb.src = item.image;
+                        thumb.alt = '';
+                        thumb.width = 40;
+                        thumb.height = 40;
+                        thumb.loading = 'lazy'
+                    }
+                }
+
                 const label = document.createElement('span');
+                label.className = 'suggest-label'
                 label.textContent = item.label;           // textContent, never innerHTML
                 const kind = document.createElement('span');
                 kind.className = 'suggest-kind';
                 kind.textContent = item.kind;
-                a.append(label, kind);
+
+                if(thumb) a.append(thumb, label, kind); else a.append(label, kind);
                 li.appendChild(a);
                 list.appendChild(li);
             });
