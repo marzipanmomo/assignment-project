@@ -14,6 +14,7 @@
 {% block content %}
 <section class="category-detail">
     <h2>⋆⊱༻ {{ category.name }} ༺⊰⋆</h2>
+    {% if products|length > 0 %}<p class="result-count">{{ products|length }} product{{ products|length|pluralize }}</p>{% endif %}
     <div class="product-grid">
         {% for product in products %}
             {% include 'store/_product_card.html' %}
